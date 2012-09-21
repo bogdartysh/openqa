@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import opennlp.maxent.MaxentModel;
+import opennlp.maxent.*;
 import opennlp.maxent.io.SuffixSensitiveGISModelReader;
 import opennlp.tools.lang.english.NameFinder;
 import opennlp.tools.namefind.NameFinderME;
