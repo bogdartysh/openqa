@@ -1,0 +1,19 @@
+0. Refactor install.sh to use maven
+
+1.Remove dependencies which prohibit commercial use
+1.1 plingstemmer,
+1.2 lingpipe
+1.3 javelin (lti)
+
+2. Update to current version
+2.1 snowball
+2.2 opennlp
+
+3. remove  deprecated dependencies
+3.1 googleapi
+
+4. remove dependencies which were patched for ephia project
+
+5. remove too old dependencie
+
+6. remove all dependencies which are not on mvnrepository.com (that is all of this folder)
