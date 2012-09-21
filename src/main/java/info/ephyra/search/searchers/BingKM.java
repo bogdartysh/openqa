@@ -80,12 +80,16 @@ public class BingKM extends KnowledgeMiner {
 
 		// do the actual search here, and collect the results
 		SearchResponse response = client.search(builder.getResult());
-		List<WebResult> results = response.getWeb().getResults();
+		
 		ArrayList<String> snippets = new ArrayList<String>();
 		ArrayList<String> urls = new ArrayList<String>();
-		for (WebResult result : results) {
-			snippets.add(result.getDescription());
-			urls.add(result.getUrl());
+		if (response != null && response.getWeb() != null) {
+			List<WebResult> results = response.getWeb().getResults();
+			if (results != null)
+				for (WebResult result : results) {
+					snippets.add(result.getDescription());
+					urls.add(result.getUrl());
+				}
 		}
 
 		// return results
