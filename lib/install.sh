@@ -2,6 +2,8 @@ mvn install:install-file -Dfile=bing-search-java-sdk.jar -DgroupId=com.google.se
 
 mvn install:install-file -Dfile=googleapi.jar -DgroupId=com.google.soap  -DartifactId=api -Dversion=beta -Dpackaging=jar
 
+mvn install:install-file -Dfile=gson.jar -DgroupId=com.google.gson -DartifactId=gson -Dversion=1.4 -Dpackaging=jar
+
 mvn install:install-file -Dfile=yahoosearch.jar -DgroupId=com.yahoo     -DartifactId=search -Dversion=beta -Dpackaging=jar
 
 #mvn install:install-file -Dfile=minorthird_20080611.jar -DgroupId=edu.cmu    -DartifactId=minorthird -Dversion=20080611 -Dpackaging=jar
