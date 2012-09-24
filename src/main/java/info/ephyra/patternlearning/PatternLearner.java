@@ -18,6 +18,9 @@ import info.ephyra.questionanalysis.QuestionNormalizer;
 import info.ephyra.search.Result;
 import info.ephyra.search.Search;
 import info.ephyra.search.searchers.BingKM;
+import info.ephyra.search.searchers.IndriKM;
+import info.ephyra.search.searchers.WikipediaKA;
+import info.ephyra.search.searchers.WorldFactbookKA;
 import info.ephyra.trec.TREC8To12Parser;
 import info.ephyra.trec.TRECAnswer;
 import info.ephyra.trec.TRECPattern;
@@ -312,8 +315,9 @@ public class PatternLearner {
 	
 	/**
 	 * Initializes the pattern learning tool.
+	 * @throws IOException 
 	 */
-	public static void init() {
+	public static void init() throws IOException {
 		MsgPrinter.printInitializing();
 		
 		// create tokenizer
@@ -408,11 +412,16 @@ public class PatternLearner {
 //		Search.addKnowledgeMiner(new GoogleKM());
 //		MsgPrinter.printStatusMsg("Adding YahooKM...");
 //		Search.addKnowledgeMiner(new YahooKM());
-//		MsgPrinter.printStatusMsg("Adding IndriKMs...");
-//		for (String[] indriIndices : IndriKM.getIndriIndices())
-//			Search.addKnowledgeMiner(new IndriKM(indriIndices, false));
-//		for (String[] indriServers : IndriKM.getIndriServers())
-//			Search.addKnowledgeMiner(new IndriKM(indriServers, true));
+		MsgPrinter.printStatusMsg("Adding WikiKA...");
+		Search.addKnowledgeAnnotator(new WikipediaKA("res/knowledgeannotation/Wikipedia"));
+		MsgPrinter.printStatusMsg("Adding WorldFactbookKA...");
+		Search.addKnowledgeAnnotator(new WorldFactbookKA("res/knowledgeannotation/WorldFactbook"));
+		
+		MsgPrinter.printStatusMsg("Adding IndriKMs...");
+		for (String[] indriIndices : IndriKM.getIndriIndices())
+			Search.addKnowledgeMiner(new IndriKM(indriIndices, false));
+		for (String[] indriServers : IndriKM.getIndriServers())
+			Search.addKnowledgeMiner(new IndriKM(indriServers, true));
 	}
 	
 	/**
@@ -550,7 +559,13 @@ public class PatternLearner {
 //		}
 		
 		// initialize the system
-		init();
+		try {
+			init();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
 		
 		// interpret TREC data
 //		interpret(args[0], args[1], args[2]);

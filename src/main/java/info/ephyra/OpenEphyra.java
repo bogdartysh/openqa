@@ -42,8 +42,16 @@ import info.ephyra.questionanalysis.QuestionNormalizer;
 import info.ephyra.search.Result;
 import info.ephyra.search.Search;
 import info.ephyra.search.searchers.BingKM;
+import info.ephyra.search.searchers.GoogleKM;
+import info.ephyra.search.searchers.IndriKM;
+import info.ephyra.search.searchers.WikipediaKA;
+import info.ephyra.search.searchers.WorldFactbookKA;
+import info.ephyra.search.searchers.YahooKM;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import org.jfree.util.Log;
 
 /**
  * <code>OpenEphyra</code> is an open framework for question answering (QA).
@@ -245,8 +253,9 @@ public class OpenEphyra {
 	
 	/**
 	 * Initializes the pipeline for factoid questions.
+	 * @throws IOException 
 	 */
-	protected void initFactoid() {
+	protected void initFactoid() throws IOException {
 		// question analysis
 		Ontology wordNet = new WordNet();
 		// - dictionaries for term extraction
@@ -267,15 +276,28 @@ public class OpenEphyra {
 		// search
 		// - knowledge miners for unstructured knowledge sources
 		Search.clearKnowledgeMiners();
-		Search.addKnowledgeMiner(new BingKM());
+		Search.clearKnowledgeAnnotators();
+//		Search.addKnowledgeMiner(new BingKM());
 //		Search.addKnowledgeMiner(new GoogleKM());
+//		Search.addKnowledgeMiner(new YahooKM());
+		MsgPrinter.printStatusMsg("Adding WikiKA...");
+		Search.addKnowledgeAnnotator(new WikipediaKA("res/knowledgeannotation/Wikipedia"));
+		MsgPrinter.printStatusMsg("Adding WorldFactbookKA...");
+		Search.addKnowledgeAnnotator(new WorldFactbookKA("res/knowledgeannotation/WorldFactbook"));
+		
+		MsgPrinter.printStatusMsg("Adding IndriKMs...");
+		for (String[] indriIndices : IndriKM.getIndriIndices())
+			Search.addKnowledgeMiner(new IndriKM(indriIndices, false));
+		for (String[] indriServers : IndriKM.getIndriServers())
+			Search.addKnowledgeMiner(new IndriKM(indriServers, true));
+		
 //		Search.addKnowledgeMiner(new YahooKM());
 //		for (String[] indriIndices : IndriKM.getIndriIndices())
 //			Search.addKnowledgeMiner(new IndriKM(indriIndices, false));
 //		for (String[] indriServers : IndriKM.getIndriServers())
 //			Search.addKnowledgeMiner(new IndriKM(indriServers, true));
 		// - knowledge annotators for (semi-)structured knowledge sources
-		Search.clearKnowledgeAnnotators();
+		
 		
 		// answer extraction and selection
 		// (the filters are applied in this order)
@@ -311,15 +333,21 @@ public class OpenEphyra {
 		// query generation
 		MsgPrinter.printGeneratingQueries();
 		Query[] queries = QueryGeneration.getQueries(aq);
-		
+		if (queries != null)
+			for (Query res:queries) 
+				Log.debug(res.getQueryString());
 		// search
 		MsgPrinter.printSearching();
 		Result[] results = Search.doSearch(queries);
-		
-		// answer selection
+		if (results != null)
+			for (Result res:results) 
+				Log.debug(res.getAnswer());
+		System.out.println(" answer selection");
 		MsgPrinter.printSelectingAnswers();
 		results = AnswerSelection.getResults(results, maxAnswers, absThresh);
-		
+		if (results != null)
+			for (Result res:results) 
+				Log.debug(res.getAnswer());
 		return results;
 	}
 	
@@ -394,7 +422,11 @@ public class OpenEphyra {
 	public Result[] askFactoid(String question, int maxAnswers,
 							   float absThresh) {
 		// initialize pipeline
-		initFactoid();
+		try {
+			initFactoid();
+		} catch (IOException e) {
+			Log.error(e,e);
+		}
 		
 		// analyze question
 		MsgPrinter.printAnalyzingQuestion();

@@ -17,6 +17,7 @@ import info.ephyra.search.Search;
  * @author Nico Schlaefer
  * @version 2005-11-01
  */
+@Deprecated
 public abstract class Searcher extends Thread {
 	/** Query that is performed. */
 	protected Query query;

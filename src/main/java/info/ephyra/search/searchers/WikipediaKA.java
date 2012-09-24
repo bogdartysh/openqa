@@ -12,6 +12,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import org.jfree.util.Log;
+
 /**
  * <p>A <code>KnowledgeAnnotator</code> for the Wikipedia online encyclopedia.
  * It answers a question for a definition by returning a sentence from the
@@ -62,7 +64,9 @@ public class WikipediaKA extends KnowledgeAnnotator {
 	protected Result[] doSearch() {
 		try {
 			// compose URL for the search
-			
+			Log.debug("Wiki searching");
+			System.out.println("Wiki searching");
+
 			String content = getContent();
 			String param = content.replace(" ", "+");
 			URL search = new URL(URL + param);

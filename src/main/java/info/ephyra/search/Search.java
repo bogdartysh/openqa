@@ -20,10 +20,12 @@ import java.util.Set;
  * @author Nico Schlaefer
  * @version 2007-05-29
  */
+@Deprecated
 public class Search {
 	/** The maximum number of parallel queries. */
 	private static final int MAX_PENDING = 30;
-	
+	/** temporary fixed **/	
+        private static final int NO_PENDING = -10000;
 	/**
 	 * <code>KnowledgeAnnotators</code> used to query (semi)structured knowledge
 	 * sources.
@@ -47,8 +49,10 @@ public class Search {
 	 * @param query query to be processed
 	 */
 	private static void queryKAs(Query query) {
-		for (int i = 0; i < kas.size(); i++)
+		for (int i = 0; i < kas.size(); i++) {
+			System.out.println("querying KA" + kas.get(i).getName());
 			kas.get(i).start(query);
+		}
 	}
 	
 	/**
@@ -57,8 +61,10 @@ public class Search {
 	 * @param query query to be processed
 	 */
 	private static void queryKMs(Query query) {
-		for (int i = 0; i < kms.size(); i++)
+		for (int i = 0; i < kms.size(); i++) {
+			System.out.println("querying KM" + kms.get(i).getName());
 			kms.get(i).start(query);
+		}
 	}
 	
 	/**
@@ -66,7 +72,7 @@ public class Search {
 	 */
 	private static void waitForResults() {
 		synchronized (results) {
-			while (pending > 0)
+			while (pending > 0 || pending == NO_PENDING)
 				try {
 					results.wait();
 				} catch (InterruptedException e) {}
@@ -137,7 +143,7 @@ public class Search {
 	 */
 	public static Result[] doSearch(Query[] queries) {
 		results = new ArrayList<Result>();
-		pending = 0;
+		pending = NO_PENDING;
 		
 		// send only the first query to the KnowledgeAnnotators
 		if (queries.length > 0) queryKAs(queries[0]);

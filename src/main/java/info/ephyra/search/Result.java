@@ -34,6 +34,7 @@ import java.util.Map;
  * @author Nico Schlaefer
  * @version 2008-01-29
  */
+
 public class Result implements Comparable<Result>, Serializable {
 	/** Version number used during deserialization. */
 	private static final long serialVersionUID = 20070501;

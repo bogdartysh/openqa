@@ -724,7 +724,9 @@ public class EphyraTREC13To16 extends OpenEphyraCorpus {
 		// search
 		MsgPrinter.printSearching();
 		Result[] results = Search.doSearch(queries);
-		
+		for (Result res : results) {
+			System.out.println(res.getAnswer() + " " + res.getDocID());
+		}
 		// answer selection
 		MsgPrinter.printSelectingAnswers();
 		results = AnswerSelection.getResults(results, Integer.MAX_VALUE, 0);
