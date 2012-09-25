@@ -7,6 +7,7 @@ package info.ephyra.util;
  * @author Nico Schlaefer
  * @version 2007-02-03
  */
+@Deprecated
 public class TimerThread extends Thread {
 	/** Timeout in milliseconds. */
 	private long timeout;

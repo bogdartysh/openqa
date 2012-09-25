@@ -14,7 +14,7 @@ import info.ephyra.answerselection.filters.ScoreSorterFilter;
 import info.ephyra.answerselection.filters.StopwordFilter;
 import info.ephyra.answerselection.filters.TruncationFilter;
 import info.ephyra.answerselection.filters.WebDocumentFetcherFilter;
-import info.ephyra.io.Logger;
+
 import info.ephyra.io.MsgPrinter;
 import info.ephyra.nlp.LingPipe;
 import info.ephyra.nlp.NETagger;
@@ -38,18 +38,19 @@ import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.QuestionAnalysis;
 import info.ephyra.questionanalysis.QuestionInterpreter;
 import info.ephyra.questionanalysis.QuestionNormalizer;
-import info.ephyra.search.Search;
-import info.ephyra.search.searchers.BingKM;
-import info.ephyra.search.searchers.GoogleKM;
-import info.ephyra.search.searchers.IndriKM;
+import info.ephyra.search.MultipleThreadSearcherAgregator;
+import info.ephyra.search.SearchAgregator;
+
 import info.ephyra.search.searchers.WikipediaKA;
 import info.ephyra.search.searchers.WorldFactbookKA;
-import info.ephyra.search.searchers.YahooKM;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
-import org.jfree.util.Log;
+
+import org.apache.log4j.Logger;
 import org.openqa.core.task.entities.Query;
 import org.openqa.core.task.entities.Result;
 
@@ -60,6 +61,10 @@ import org.openqa.core.task.entities.Result;
  * @version 2008-03-23
  */
 public class OpenEphyra {
+	private Logger _log = Logger
+			.getLogger(MultipleThreadSearcherAgregator.class.getCanonicalName());
+	
+	public SearchAgregator searcher;
 	/** Factoid question type. */
 	protected static final String FACTOID = "FACTOID";
 	/** List question type. */
@@ -94,12 +99,20 @@ public class OpenEphyra {
 		MsgPrinter.enableStatusMsgs(true);
 		MsgPrinter.enableErrorMsgs(true);
 		
-		// set log file and enable logging
-		Logger.setLogfile("log/OpenEphyra");
-		Logger.enableLogging(true);
+
+		OpenEphyra openEphyra = new OpenEphyra();
+		openEphyra.searcher = new MultipleThreadSearcherAgregator();
+		try {
+			openEphyra.searcher.getSearchers().add(new WikipediaKA("res/knowledgeannotation/Wikipedia"));
+			openEphyra.searcher.getSearchers().add(new WorldFactbookKA("res/knowledgeannotation/WorldFactbook"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
 		
 		// initialize Ephyra and start command line interface
-		(new OpenEphyra()).commandLine();
+		openEphyra.commandLine();
 	}
 	
 	/**
@@ -273,34 +286,7 @@ public class OpenEphyra {
 		QueryGeneration.addQueryGenerator(new QuestionInterpretationG());
 		QueryGeneration.addQueryGenerator(new QuestionReformulationG());
 		
-		// search
-		// - knowledge miners for unstructured knowledge sources
-		Search.clearKnowledgeMiners();
-		Search.clearKnowledgeAnnotators();
-//		Search.addKnowledgeMiner(new BingKM());
-//		Search.addKnowledgeMiner(new GoogleKM());
-//		Search.addKnowledgeMiner(new YahooKM());
-		MsgPrinter.printStatusMsg("Adding WikiKA...");
-		Search.addKnowledgeAnnotator(new WikipediaKA("res/knowledgeannotation/Wikipedia"));
-		MsgPrinter.printStatusMsg("Adding WorldFactbookKA...");
-		Search.addKnowledgeAnnotator(new WorldFactbookKA("res/knowledgeannotation/WorldFactbook"));
 		
-		MsgPrinter.printStatusMsg("Adding IndriKMs...");
-		for (String[] indriIndices : IndriKM.getIndriIndices())
-			Search.addKnowledgeMiner(new IndriKM(indriIndices, false));
-		for (String[] indriServers : IndriKM.getIndriServers())
-			Search.addKnowledgeMiner(new IndriKM(indriServers, true));
-		
-//		Search.addKnowledgeMiner(new YahooKM());
-//		for (String[] indriIndices : IndriKM.getIndriIndices())
-//			Search.addKnowledgeMiner(new IndriKM(indriIndices, false));
-//		for (String[] indriServers : IndriKM.getIndriServers())
-//			Search.addKnowledgeMiner(new IndriKM(indriServers, true));
-		// - knowledge annotators for (semi-)structured knowledge sources
-		
-		
-		// answer extraction and selection
-		// (the filters are applied in this order)
 		AnswerSelection.clearFilters();
 		// - answer extraction filters
 		AnswerSelection.addFilter(new AnswerTypeFilter());
@@ -328,26 +314,28 @@ public class OpenEphyra {
 	 * @param absThresh absolute threshold for scores
 	 * @return array of results
 	 */
-	protected Result[] runPipeline(AnalyzedQuestion aq, int maxAnswers,
+	protected Collection<Result> runPipeline(AnalyzedQuestion aq, int maxAnswers,
 								  float absThresh) {
 		// query generation
 		MsgPrinter.printGeneratingQueries();
 		Query[] queries = QueryGeneration.getQueries(aq);
 		if (queries != null)
 			for (Query res:queries) 
-				Log.debug(res.getQueryString());
+				_log.debug(res.getQueryString());
 		// search
 		MsgPrinter.printSearching();
-		Result[] results = Search.doSearch(queries);
+		
+		
+		Collection<Result> results = searcher.findResults(Arrays.asList(queries));
 		if (results != null)
 			for (Result res:results) 
-				Log.debug(res.getAnswer());
+				_log.debug(res.getAnswer());
 		System.out.println(" answer selection");
 		MsgPrinter.printSelectingAnswers();
-		results = AnswerSelection.getResults(results, maxAnswers, absThresh);
+		results = Arrays.asList(AnswerSelection.getResults(results.toArray(new Result[0]), maxAnswers, absThresh));
 		if (results != null)
 			for (Result res:results) 
-				Log.debug(res.getAnswer());
+				_log.debug(res.getAnswer());
 		return results;
 	}
 	
@@ -391,19 +379,23 @@ public class OpenEphyra {
 			}
 			
 			// ask question
-			Result[] results = new Result[0];
+			Collection<Result> results = null;
 			if (type.equals(FACTOID)) {
-				Logger.logFactoidStart(question);
+				_log.info("FACTOID");
+				_log.info(question);
+				
 				results = askFactoid(question, FACTOID_MAX_ANSWERS,
-						FACTOID_ABS_THRESH);
-				Logger.logResults(results);
-				Logger.logFactoidEnd();
+						FACTOID_ABS_THRESH);			
+				
 			} else if (type.equals(LIST)) {
-				Logger.logListStart(question);
-				results = askList(question, LIST_REL_THRESH);
-				Logger.logResults(results);
-				Logger.logListEnd();
+				_log.info("FACTOID");
+				_log.info(question);
+				results = askList(question, LIST_REL_THRESH);			
+				
 			}
+			if (results != null)
+			for (Result result:results)
+				_log.info(result.getAnswer());
 			
 			// print answers
 			MsgPrinter.printAnswers(results);
@@ -419,13 +411,13 @@ public class OpenEphyra {
 	 * @param absThresh absolute threshold for scores
 	 * @return array of results
 	 */
-	public Result[] askFactoid(String question, int maxAnswers,
+	public Collection<Result> askFactoid(String question, int maxAnswers,
 							   float absThresh) {
 		// initialize pipeline
 		try {
 			initFactoid();
 		} catch (IOException e) {
-			Log.error(e,e);
+			_log.error(e,e);
 		}
 		
 		// analyze question
@@ -433,9 +425,8 @@ public class OpenEphyra {
 		AnalyzedQuestion aq = QuestionAnalysis.analyze(question);
 		
 		// get answers
-		Result[] results = runPipeline(aq, maxAnswers, absThresh);
+		return runPipeline(aq, maxAnswers, absThresh);
 		
-		return results;
 	}
 	
 	/**
@@ -446,9 +437,10 @@ public class OpenEphyra {
 	 * @return single result or <code>null</code>
 	 */
 	public Result askFactoid(String question) {
-		Result[] results = askFactoid(question, 1, 0);
+		Collection<Result> results = askFactoid(question, 1, 0);
 		
-		return (results.length > 0) ? results[0] : null;
+		return (results!= null && results.isEmpty()) ? results.iterator().next() : null;
+		
 	}
 	
 	/**
@@ -459,21 +451,21 @@ public class OpenEphyra {
 	 * @param relThresh relative threshold for scores
 	 * @return array of results
 	 */
-	public Result[] askList(String question, float relThresh) {
+	public Collection<Result> askList(String question, float relThresh) {
 		question = QuestionNormalizer.transformList(question);
 		
-		Result[] results = askFactoid(question, Integer.MAX_VALUE, 0);
+		final Collection<Result> results = askFactoid(question, Integer.MAX_VALUE, 0);
 		
 		// get results with a score of at least relThresh * top score
 		ArrayList<Result> confident = new ArrayList<Result>();
-		if (results.length > 0) {
-			float topScore = results[0].getScore();
+		if (results!= null && results.isEmpty()) {
+			float topScore = results.iterator().next() .getScore();
 			
 			for (Result result : results)
 				if (result.getScore() >= relThresh * topScore)
 					confident.add(result);
 		}
 		
-		return confident.toArray(new Result[confident.size()]);
+		return confident;
 	}
 }

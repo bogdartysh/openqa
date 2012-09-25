@@ -21,6 +21,7 @@ import org.openqa.core.task.entities.Result;
  * @author Nico Schlaefer
  * @version 2005-09-30
  */
+@Deprecated
 public class Logger {
 	/** The log file. */
 	private static File logfile;

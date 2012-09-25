@@ -37,13 +37,14 @@
   <artifactId>opennlp-tools</artifactId>
   <version>1.5.2-incubating</version>
 </dependency>
+-->
 <dependency>
 	<groupId>com.google.code.gson</groupId>
 	<artifactId>gson</artifactId>
 	<version>2.2.2</version>
 </dependency>
 
--->
+
 <dependency>
 	<groupId>org.htmlparser</groupId>
 	<artifactId>htmlparser</artifactId>
@@ -142,13 +143,6 @@
 	<artifactId>trove</artifactId>
 	<version>1.0.2</version>
 </dependency>
-
-<dependency>
-	<groupId>com.google.gson</groupId>
-	<artifactId>gson</artifactId>
-	<version>1.4</version>
-</dependency>
-
   </dependencies>	
 
 
@@ -157,6 +151,7 @@
 		<plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
