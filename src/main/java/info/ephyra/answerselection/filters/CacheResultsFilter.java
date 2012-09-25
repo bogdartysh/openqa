@@ -1,6 +1,6 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Caches the results along with the query string of the first result. If the

@@ -1,13 +1,14 @@
 package info.ephyra.answerselection.filters;
 
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>DeserializationFilter</code> reads serialized results from one

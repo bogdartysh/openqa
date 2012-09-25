@@ -1,8 +1,9 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Drops answer candidates for definitional questions that consist of direct

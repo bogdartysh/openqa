@@ -1,4 +1,4 @@
-package info.ephyra.querygeneration;
+package org.openqa.core.task.entities;
 
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.QuestionInterpretation;

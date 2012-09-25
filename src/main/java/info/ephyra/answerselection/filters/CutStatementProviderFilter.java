@@ -1,9 +1,10 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Trims answer candidates for definitional questions to improve the

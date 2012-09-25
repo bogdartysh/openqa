@@ -1,9 +1,7 @@
 package info.ephyra.io;
 
 import info.ephyra.nlp.semantics.Predicate;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.QuestionInterpretation;
-import info.ephyra.search.Result;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +9,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.Date;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * Logs all questions that are posed to the system and the answers that are

@@ -2,11 +2,12 @@ package info.ephyra.answerselection.filters;
 
 import info.ephyra.nlp.OpenNLP;
 import info.ephyra.nlp.SnowballStemmer;
-import info.ephyra.search.Result;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Scores answer candidates for definitional questions according to the

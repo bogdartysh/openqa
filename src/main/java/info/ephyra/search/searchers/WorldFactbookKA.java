@@ -2,7 +2,6 @@ package info.ephyra.search.searchers;
 
 import info.ephyra.io.MsgPrinter;
 import info.ephyra.nlp.SentenceExtractor;
-import info.ephyra.search.Result;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A <code>KnowledgeAnnotator</code> for the CIA World Factbook. It answers a

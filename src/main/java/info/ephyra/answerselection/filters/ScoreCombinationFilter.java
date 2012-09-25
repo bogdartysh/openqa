@@ -1,6 +1,5 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
@@ -9,6 +8,8 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>ScoreCombinationFilter</code> combines the normalized scores of

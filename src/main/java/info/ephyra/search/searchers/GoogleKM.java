@@ -1,7 +1,8 @@
 package info.ephyra.search.searchers;
 
+import org.openqa.core.task.entities.Result;
+
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 
 import com.google.soap.search.GoogleSearch;
 import com.google.soap.search.GoogleSearchFault;

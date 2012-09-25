@@ -2,8 +2,6 @@ package info.ephyra.answerselection.filters;
 
 import info.ephyra.io.MsgPrinter;
 import info.ephyra.nlp.semantics.Predicate;
-import info.ephyra.querygeneration.Query;
-import info.ephyra.search.Result;
 import info.ephyra.util.FileCache;
 import info.ephyra.util.HTMLConverter;
 
@@ -14,6 +12,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A filter that fetches web documents that contain the given search engine

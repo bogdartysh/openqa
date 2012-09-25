@@ -2,9 +2,10 @@ package info.ephyra.answerselection;
 
 import info.ephyra.answerselection.filters.Filter;
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>AnswerSelection</code> component applies <code>Filters</code> to

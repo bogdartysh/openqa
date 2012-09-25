@@ -1,9 +1,10 @@
 package info.ephyra.answerselection.filters;
 
 import info.ephyra.nlp.LingPipe;
-import info.ephyra.search.Result;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Splits the answer strings of results that are not from knowledge

@@ -4,9 +4,7 @@ import info.ephyra.answerselection.AnswerPattern;
 import info.ephyra.io.MsgPrinter;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.OpenNLP;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.QuestionInterpretation;
-import info.ephyra.search.Result;
 import info.ephyra.util.FileUtils;
 import info.ephyra.util.RegexConverter;
 import info.ephyra.util.StringUtils;
@@ -23,6 +21,9 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>AnswerPatternFilter</code> uses answer patterns to extract

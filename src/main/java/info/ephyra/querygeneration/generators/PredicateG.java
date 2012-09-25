@@ -5,13 +5,14 @@ import info.ephyra.answerselection.filters.AnswerTypeFilter;
 import info.ephyra.answerselection.filters.FactoidsFromPredicatesFilter;
 import info.ephyra.nlp.indices.FunctionWords;
 import info.ephyra.nlp.semantics.Predicate;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.Term;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import org.openqa.core.task.entities.Query;
 
 /**
  * <p>The <code>PredicateG</code> query generator creates queries from the

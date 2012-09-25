@@ -2,7 +2,6 @@ package info.ephyra.answerselection.filters;
 
 import info.ephyra.io.MsgPrinter;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
-import info.ephyra.search.Result;
 import info.ephyra.util.ArrayUtils;
 import info.ephyra.util.FileUtils;
 import info.ephyra.util.StringUtils;
@@ -17,6 +16,8 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
+
+import org.openqa.core.task.entities.Result;
 
 import edu.cmu.minorthird.classify.BasicDataset;
 import edu.cmu.minorthird.classify.ClassLabel;

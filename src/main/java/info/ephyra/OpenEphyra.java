@@ -28,7 +28,6 @@ import info.ephyra.nlp.indices.Prepositions;
 import info.ephyra.nlp.indices.WordFrequencies;
 import info.ephyra.nlp.semantics.ontologies.Ontology;
 import info.ephyra.nlp.semantics.ontologies.WordNet;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.querygeneration.QueryGeneration;
 import info.ephyra.querygeneration.generators.BagOfTermsG;
 import info.ephyra.querygeneration.generators.BagOfWordsG;
@@ -39,7 +38,6 @@ import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.QuestionAnalysis;
 import info.ephyra.questionanalysis.QuestionInterpreter;
 import info.ephyra.questionanalysis.QuestionNormalizer;
-import info.ephyra.search.Result;
 import info.ephyra.search.Search;
 import info.ephyra.search.searchers.BingKM;
 import info.ephyra.search.searchers.GoogleKM;
@@ -52,6 +50,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jfree.util.Log;
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <code>OpenEphyra</code> is an open framework for question answering (QA).

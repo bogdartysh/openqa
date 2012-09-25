@@ -3,7 +3,6 @@ package info.ephyra.answerselection.filters;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.SnowballStemmer;
 import info.ephyra.nlp.indices.FunctionWords;
-import info.ephyra.search.Result;
 import info.ephyra.trec.TRECNugget;
 
 import java.io.BufferedReader;
@@ -19,6 +18,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Automatically evaluates answer candidates for the 'other' questions in

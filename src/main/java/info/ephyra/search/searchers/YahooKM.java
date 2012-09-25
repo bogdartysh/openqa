@@ -1,9 +1,10 @@
 package info.ephyra.search.searchers;
 
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 
 import java.math.BigInteger;
+
+import org.openqa.core.task.entities.Result;
 
 import com.yahoo.search.SearchClient;
 import com.yahoo.search.WebSearchRequest;

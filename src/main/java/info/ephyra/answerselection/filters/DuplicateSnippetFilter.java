@@ -3,11 +3,12 @@ package info.ephyra.answerselection.filters;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.SnowballStemmer;
 import info.ephyra.nlp.indices.FunctionWords;
-import info.ephyra.search.Result;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A variant of the <code>DuplicateFilter</code> for answer candidates that

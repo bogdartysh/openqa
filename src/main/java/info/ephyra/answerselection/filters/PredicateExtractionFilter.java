@@ -7,12 +7,10 @@ import info.ephyra.nlp.VerbFormConverter;
 import info.ephyra.nlp.semantics.ASSERT;
 import info.ephyra.nlp.semantics.Predicate;
 import info.ephyra.nlp.semantics.ontologies.WordNet;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.QuestionAnalysis;
 import info.ephyra.questionanalysis.Term;
 import info.ephyra.questionanalysis.TermExtractor;
-import info.ephyra.search.Result;
 import info.ephyra.util.Dictionary;
 import info.ephyra.util.StringUtils;
 
@@ -22,6 +20,9 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Extracts predicates which are similar to those in the question from

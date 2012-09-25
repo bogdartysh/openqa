@@ -1,7 +1,8 @@
 package info.ephyra.answerselection.filters;
 
+import org.openqa.core.task.entities.Result;
+
 import info.ephyra.questionanalysis.KeywordExtractor;
-import info.ephyra.search.Result;
 
 /**
  * <p>A filter that drops a result if the answer string contains a keyword from

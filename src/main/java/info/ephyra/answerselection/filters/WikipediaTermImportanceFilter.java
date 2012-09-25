@@ -5,12 +5,10 @@ import info.ephyra.io.MsgPrinter;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.OpenNLP;
 import info.ephyra.nlp.SnowballStemmer;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.querygeneration.generators.BagOfWordsG;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.KeywordExtractor;
 import info.ephyra.questionanalysis.QuestionNormalizer;
-import info.ephyra.search.Result;
 import info.ephyra.trec.TREC13To16Parser;
 import info.ephyra.trec.TRECTarget;
 
@@ -20,6 +18,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A web term importance filter that counts term frequencies in a Wikipedia

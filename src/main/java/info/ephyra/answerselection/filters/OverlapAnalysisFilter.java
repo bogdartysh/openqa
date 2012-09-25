@@ -1,13 +1,14 @@
 package info.ephyra.answerselection.filters;
 
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 import info.ephyra.trec.TRECPattern;
 import info.ephyra.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Generates overlap analyses for different answer extraction strategies. The

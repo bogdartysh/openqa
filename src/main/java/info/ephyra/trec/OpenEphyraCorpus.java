@@ -30,12 +30,13 @@ import info.ephyra.querygeneration.generators.QuestionReformulationG;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.QuestionAnalysis;
 import info.ephyra.questionanalysis.QuestionNormalizer;
-import info.ephyra.search.Result;
 import info.ephyra.search.Search;
 import info.ephyra.search.searchers.BingKM;
 import info.ephyra.search.searchers.IndriKM;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A modified version of <code>OpenEphyra</code> that is optimized for the

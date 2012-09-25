@@ -1,6 +1,6 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Scores the results according to their hit positions. The score of each

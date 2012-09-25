@@ -3,11 +3,12 @@ package info.ephyra.answerselection.filters;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.SnowballStemmer;
 import info.ephyra.nlp.indices.FunctionWords;
-import info.ephyra.search.Result;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Prefers answer candidates for definitional questions that contain common

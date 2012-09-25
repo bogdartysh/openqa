@@ -1,9 +1,10 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>DuplicateFilter</code> drops duplicate results. Results are

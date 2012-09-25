@@ -4,7 +4,6 @@ import info.ephyra.answerselection.filters.AnswerPatternFilter;
 import info.ephyra.answerselection.filters.AnswerTypeFilter;
 import info.ephyra.answerselection.filters.FactoidsFromPredicatesFilter;
 import info.ephyra.nlp.semantics.Predicate;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.Term;
 import info.ephyra.questionanalysis.TermExpander;
@@ -13,6 +12,8 @@ import info.ephyra.util.StringUtils;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
+
+import org.openqa.core.task.entities.Query;
 
 /**
  * <p>The <code>BagOfTermsG</code> query generator creates a query from the

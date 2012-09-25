@@ -2,12 +2,13 @@ package info.ephyra.trec;
 
 import info.ephyra.io.Logger;
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Runs and evaluates Ephyra on the data from the TREC 8-11 QA tracks.</p>

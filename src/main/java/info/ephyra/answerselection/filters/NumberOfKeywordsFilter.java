@@ -1,7 +1,8 @@
 package info.ephyra.answerselection.filters;
 
+import org.openqa.core.task.entities.Result;
+
 import info.ephyra.questionanalysis.KeywordExtractor;
-import info.ephyra.search.Result;
 
 /**
  * <p>Filters results by the number of keywords.</p>

@@ -1,16 +1,22 @@
 package info.ephyra.search.searchers;
 
-import info.ephyra.querygeneration.Query;
-import info.ephyra.search.Result;
-import info.ephyra.search.Search;
+import info.ephyra.search.Searcher;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A <code>KnowledgeAnnotator</code> searches a (semi)structured knowledge
@@ -27,19 +33,19 @@ import java.util.regex.Pattern;
  * @author Nico Schlaefer
  * @version 2005-09-28
  */
-public abstract class KnowledgeAnnotator extends Searcher {
+public abstract class KnowledgeAnnotator implements Searcher {
 	/** Name of the knowledge annotator. */
 	protected String name;
 	/**
 	 * A question that matches at least one of these patterns can be handled by
 	 * the <code>KnowledgeAnnotator</code>.
 	 */
-	protected ArrayList<Pattern> qPatterns = new ArrayList<Pattern>();
+	protected List<Pattern> qPatterns = new LinkedList<Pattern>();
 	/**
 	 * Strings identifying the relevant content of a question by referring to
 	 * the groups in the corresponding question patterns.
 	 */
-	protected ArrayList<String> qContents = new ArrayList<String>();
+	protected List<String> qContents = new LinkedList<String>();
 	/** Index of the matching pattern. */
 	protected int index;
 	/** The <code>Matcher</code> that matched the pattern with the question. */
@@ -111,19 +117,14 @@ public abstract class KnowledgeAnnotator extends Searcher {
 	 * @return true, iff the question matches at least one of the patterns in
 	 * 		   <code>qPatterns</code>
 	 */
-	protected boolean matches(Query query) {
+	public boolean matches(final Query query) {
 		String question = query.getAnalyzedQuestion().getQuestion();
 		
 		for (int i = 0; i < qPatterns.size(); i++) {
 			Matcher m = qPatterns.get(i).matcher(question);
 			
-			if (m.matches()) {
-				this.query = query;	// save the Query object
-				index = i;			// save the index of the pattern
-				matcher = m;		// save the matcher
-				
-				return true;
-			}
+			if (m.matches()) 
+				return true;			
 		}
 		
 		return false;
@@ -151,23 +152,7 @@ public abstract class KnowledgeAnnotator extends Searcher {
 		
 		return content;
 	}
-	/**
-	 * Creates an array of a single <code>Result</code> object form an answer
-	 * string and a document ID.
-	 * 
-	 * @param answer answer string
-	 * @param docID document ID
-	 * @return array of a single <code>Result</code> object
-	 */
-	protected Result[] getResult(String answer, String docID) {
-		Result[] results = new Result[1];
-		
-		results[0] = new Result(answer, query, docID);
-		// result is always returned by the QA engine
-		results[0].setScore(Float.POSITIVE_INFINITY);
-		
-		return results;
-	}
+
 	
 	/**
 	 * Returns the name of the knowledgeAnnotator.
@@ -178,43 +163,4 @@ public abstract class KnowledgeAnnotator extends Searcher {
 		return name;
 	}
 	
-	/**
-	 * <p>Returns a new instance of the <code>KnowledgeAnnotator</code>. A new
-	 * instance is created for each query.</p>
-	 * 
-	 * <p>It does not necessarily return an exact copy of the current
-	 * instance.</p>
-	 * 
-	 * @return new instance of the <code>KnowledgeAnnotator</code>
-	 */
-	public abstract KnowledgeAnnotator getCopy();
 	
-	/**
-	 * <p>Sets the query and starts the thread if the knowledge annotator is
-	 * appropriate for the user question.</p>
-	 * 
-	 * <p>This method should be used instead of the inherited
-	 * <code>start()</code> method without arguments.</p>
-	 * 
-	 * @param query query object
-	 * @return true, iff the knowledge annotator is appropriate and the thread
-	 * 		   was started
-	 */
-	public boolean start(Query query) {
-		KnowledgeAnnotator ka = getCopy();
-		
-		if (ka.matches(query)) {
-			// wait until there are less than MAX_PENDING pending queries
-			Search.waitForPending();
-			
-			ka.start();
-			
-			// one more pending query
-			Search.incPending();
-			
-			return true;
-		}
-		
-		return false;
-	}
-}

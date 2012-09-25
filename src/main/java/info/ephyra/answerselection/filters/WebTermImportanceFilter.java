@@ -7,12 +7,10 @@ import info.ephyra.nlp.OpenNLP;
 import info.ephyra.nlp.SnowballStemmer;
 import info.ephyra.nlp.StanfordNeTagger;
 import info.ephyra.nlp.indices.WordFrequencies;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.querygeneration.generators.BagOfWordsG;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.KeywordExtractor;
 import info.ephyra.questionanalysis.QuestionNormalizer;
-import info.ephyra.search.Result;
 import info.ephyra.trec.TREC13To16Parser;
 import info.ephyra.trec.TRECTarget;
 
@@ -22,6 +20,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A web reinforcement approach that ranks answer candidates for definitional

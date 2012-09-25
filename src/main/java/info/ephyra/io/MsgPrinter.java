@@ -2,13 +2,14 @@ package info.ephyra.io;
 
 import info.ephyra.answerselection.filters.Filter;
 import info.ephyra.nlp.semantics.Predicate;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.QuestionInterpretation;
-import info.ephyra.search.Result;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Prints out status and error messages as well as results to the standard

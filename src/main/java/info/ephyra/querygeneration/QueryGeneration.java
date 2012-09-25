@@ -7,6 +7,8 @@ import info.ephyra.questionanalysis.AnalyzedQuestion;
 
 import java.util.ArrayList;
 
+import org.openqa.core.task.entities.Query;
+
 /**
  * Generates one or more <code>Queries</code> from a previously analyzed
  * question by applying a set of <code>QueryGenerators</code>.

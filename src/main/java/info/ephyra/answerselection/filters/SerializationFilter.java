@@ -1,12 +1,13 @@
 package info.ephyra.answerselection.filters;
 
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>SerializationFilter</code> serializes the results and writes

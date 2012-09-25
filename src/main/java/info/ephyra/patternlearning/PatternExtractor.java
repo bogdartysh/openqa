@@ -5,7 +5,6 @@ import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.OpenNLP;
 import info.ephyra.questionanalysis.QuestionInterpretation;
 import info.ephyra.questionanalysis.QuestionInterpreter;
-import info.ephyra.search.Result;
 import info.ephyra.util.RegexConverter;
 import info.ephyra.util.StringUtils;
 
@@ -13,6 +12,8 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * Extracts answer patterns from text passages and adds them to the

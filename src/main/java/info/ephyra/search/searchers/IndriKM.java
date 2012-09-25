@@ -1,11 +1,12 @@
 package info.ephyra.search.searchers;
 
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.search.Result;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.core.task.entities.Result;
 
 import lemurproject.indri.ParsedDocument;
 import lemurproject.indri.QueryEnvironment;

@@ -3,7 +3,6 @@ package info.ephyra.querygeneration.generators;
 import info.ephyra.answerselection.filters.AnswerPatternFilter;
 import info.ephyra.answerselection.filters.AnswerTypeFilter;
 import info.ephyra.answerselection.filters.FactoidsFromPredicatesFilter;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.querygeneration.QuestionReformulator;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.util.FileUtils;
@@ -12,6 +11,8 @@ import info.ephyra.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Query;
 
 /**
  * <p>The <code>QuestionReformulationG</code> can be applied to a question to

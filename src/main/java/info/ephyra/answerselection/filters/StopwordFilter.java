@@ -1,9 +1,10 @@
 package info.ephyra.answerselection.filters;
 
+import org.openqa.core.task.entities.Result;
+
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.indices.FunctionWords;
 import info.ephyra.nlp.semantics.ontologies.WordNet;
-import info.ephyra.search.Result;
 
 /**
  * <p>A filter that drops a result if the answer string

@@ -20,7 +20,6 @@ import info.ephyra.answerselection.filters.WikipediaGoogleTermImportanceFilter;
 import info.ephyra.io.Logger;
 import info.ephyra.io.MsgPrinter;
 import info.ephyra.nlp.NETagger;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.querygeneration.QueryGeneration;
 import info.ephyra.querygeneration.generators.BagOfWordsG;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
@@ -29,8 +28,7 @@ import info.ephyra.questionanalysis.QuestionAnalysis;
 import info.ephyra.questionanalysis.QuestionInterpretation;
 import info.ephyra.questionanalysis.QuestionInterpreter;
 import info.ephyra.questionanalysis.QuestionNormalizer;
-import info.ephyra.search.Result;
-import info.ephyra.search.Search;
+import info.ephyra.search.Searcher;
 import info.ephyra.search.searchers.IndriKM;
 
 import java.util.ArrayList;
@@ -38,6 +36,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Runs and evaluates Ephyra on the data from the TREC 13-16 QA tracks.</p>

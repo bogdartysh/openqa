@@ -2,12 +2,13 @@ package info.ephyra.answerselection.filters;
 
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.indices.Prepositions;
-import info.ephyra.search.Result;
 import info.ephyra.util.RegexConverter;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A filter that truncates the answer strings. It drops the following

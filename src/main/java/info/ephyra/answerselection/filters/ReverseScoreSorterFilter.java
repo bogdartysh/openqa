@@ -1,8 +1,9 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
 
 import java.util.Arrays;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>ReverseScoreSorterFilter</code> sorts the results by their

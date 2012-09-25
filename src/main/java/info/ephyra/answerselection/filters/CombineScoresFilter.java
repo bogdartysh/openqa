@@ -1,6 +1,6 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Combines the extra scores of each <code>Result</code> and sets the main
@@ -27,7 +27,7 @@ public class CombineScoresFilter extends Filter {
 		return result;
 	}
 	
-	/** @see info.ephyra.answerselection.filters.Filter#apply(info.ephyra.search.Result[])
+	/** @see info.ephyra.answerselection.filters.Filter#apply(org.openqa.core.task.entities.Result[])
 	 */
 	public Result[] apply(Result[] results) {
 		for (Result r : results) this.apply(r);

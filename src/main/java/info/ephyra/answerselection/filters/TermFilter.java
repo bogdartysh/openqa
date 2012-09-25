@@ -3,12 +3,13 @@ package info.ephyra.answerselection.filters;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.SnowballStemmer;
 import info.ephyra.nlp.indices.FunctionWords;
-import info.ephyra.search.Result;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Drops answer candidates for the 'other' questions in TREC 13-16 that

@@ -1,11 +1,12 @@
 package info.ephyra.search.searchers;
 
-import info.ephyra.querygeneration.Query;
-import info.ephyra.search.Result;
-import info.ephyra.search.Search;
+import info.ephyra.search.Searcher;
 import info.ephyra.util.HTMLConverter;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>A <code>KnowledgeMiner</code> deploys a document retrieval system to
@@ -20,7 +21,7 @@ import java.util.ArrayList;
  * @author Nico Schlaefer
  * @version 2007-05-29
  */
-public abstract class KnowledgeMiner extends Searcher {
+public abstract class KnowledgeMiner implements Searcher {
 	/** The hit position of the first result to be fetched. */
 	protected int firstResult;
 	/** The maximum number of results to be fetched. */
@@ -137,22 +138,4 @@ public abstract class KnowledgeMiner extends Searcher {
 	 */
 	public abstract KnowledgeMiner getCopy();
 	
-	/**
-	 * <p>Creates <code>[MAX_RESULTS_TOTAL / MAX_RESULTS_PERQUERY]</code>
-	 * threads that fetch up to <code>MAX_RESULTS_TOTAL</code> results.</p>
-	 * 
-	 * <p>This method should be used instead of the inherited
-	 * <code>start()</code> method without arguments.</p>
-	 * 
-	 * @param query <code>Query</code> object
-	 */
-	public void start(Query query) {
-		int firstResult = 1;
-		
-		while (firstResult <= getMaxResultsTotal()) {
-			getCopy().start(query, firstResult);
-			
-			firstResult += getMaxResultsPerQuery();
-		}
-	}
 }

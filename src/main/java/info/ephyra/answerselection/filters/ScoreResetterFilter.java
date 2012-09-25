@@ -1,6 +1,6 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>Filter setting the score of each result to 0.</p>

@@ -1,9 +1,10 @@
 package info.ephyra.search.searchers;
 
-import info.ephyra.search.Result;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.openqa.core.task.entities.Result;
 
 import com.aliasi.util.Collections;
 import com.google.code.bing.search.client.BingSearchClient;

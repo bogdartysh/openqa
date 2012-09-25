@@ -10,13 +10,11 @@ import info.ephyra.nlp.indices.FunctionWords;
 import info.ephyra.nlp.indices.IrregularVerbs;
 import info.ephyra.nlp.indices.Prepositions;
 import info.ephyra.nlp.semantics.ontologies.WordNet;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.querygeneration.generators.QuestionInterpretationG;
 import info.ephyra.questionanalysis.QuestionInterpretation;
 import info.ephyra.questionanalysis.QuestionInterpreter;
 import info.ephyra.questionanalysis.QuestionNormalizer;
-import info.ephyra.search.Result;
-import info.ephyra.search.Search;
+import info.ephyra.search.Searcher;
 import info.ephyra.search.searchers.BingKM;
 import info.ephyra.search.searchers.IndriKM;
 import info.ephyra.search.searchers.WikipediaKA;
@@ -36,6 +34,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Hashtable;
+
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 
 /**
  * A pattern learning tool for Ephyra.

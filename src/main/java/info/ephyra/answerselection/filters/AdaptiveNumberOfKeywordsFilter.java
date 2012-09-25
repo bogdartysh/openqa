@@ -2,9 +2,10 @@ package info.ephyra.answerselection.filters;
 
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.SnowballStemmer;
-import info.ephyra.search.Result;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>An adaptive version of the <code>NumberOfKeywordsFilter</code> that also

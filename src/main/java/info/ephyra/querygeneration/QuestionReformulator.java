@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.openqa.core.task.entities.Query;
+
 /**
  * <p>A <code>QuestionReformulator</code> can be applied to a question to obtain
  * reformulations of the question that are likely to occur in text passages that

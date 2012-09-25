@@ -3,11 +3,12 @@ package info.ephyra.querygeneration.generators;
 import info.ephyra.answerselection.filters.AnswerPatternFilter;
 import info.ephyra.answerselection.filters.AnswerTypeFilter;
 import info.ephyra.answerselection.filters.FactoidsFromPredicatesFilter;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 import info.ephyra.questionanalysis.QuestionInterpretation;
 
 import java.util.ArrayList;
+
+import org.openqa.core.task.entities.Query;
 
 /**
  * <p>The <code>QuestionInterpretationG</code> generates queries from question

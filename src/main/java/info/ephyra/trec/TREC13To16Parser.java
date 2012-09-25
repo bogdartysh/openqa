@@ -1,9 +1,7 @@
 package info.ephyra.trec;
 
 import info.ephyra.io.MsgPrinter;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.QuestionInterpretation;
-import info.ephyra.search.Result;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -17,6 +15,8 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

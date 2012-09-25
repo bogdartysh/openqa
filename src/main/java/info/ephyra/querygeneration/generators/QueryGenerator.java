@@ -1,6 +1,7 @@
 package info.ephyra.querygeneration.generators;
 
-import info.ephyra.querygeneration.Query;
+import org.openqa.core.task.entities.Query;
+
 import info.ephyra.questionanalysis.AnalyzedQuestion;
 
 /**

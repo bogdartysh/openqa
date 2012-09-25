@@ -3,12 +3,13 @@ package info.ephyra.answerselection.filters;
 import info.ephyra.io.MsgPrinter;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.OpenNLP;
-import info.ephyra.search.Result;
 import info.ephyra.util.RegexConverter;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>The <code>AnswerProjectionFilter</code> projects answers from the Web onto

@@ -1,6 +1,6 @@
 package info.ephyra.answerselection.filters;
 
-import info.ephyra.search.Result;
+import org.openqa.core.task.entities.Result;
 
 /**
  * <p>This filter simply increments the score of each result by the score of the

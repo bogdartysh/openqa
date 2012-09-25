@@ -1,7 +1,6 @@
-package info.ephyra.search;
+package org.openqa.core.task.entities;
 
 import info.ephyra.nlp.semantics.Predicate;
-import info.ephyra.querygeneration.Query;
 import info.ephyra.questionanalysis.Term;
 
 import java.io.Serializable;

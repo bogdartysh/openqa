@@ -1,7 +1,8 @@
 package info.ephyra.search.searchers;
 
-import info.ephyra.querygeneration.Query;
-import info.ephyra.search.Result;
+import org.openqa.core.task.entities.Query;
+import org.openqa.core.task.entities.Result;
+
 import info.ephyra.search.Search;
 
 /**
