@@ -346,7 +346,7 @@ public class OpenEphyra {
 		System.out.println(" answer selection");
 		MsgPrinter.printSelectingAnswers();
 		results = Arrays.asList(AnswerSelection.getResults(
-				results.toArray(new Result[0]), maxAnswers, absThresh));
+				results, maxAnswers, absThresh));
 		if (results != null)
 			for (Result res : results)
 				_log.debug(res.getAnswer());
