@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.openphyra</groupId>
-  <artifactId>openqa-search</artifactId>
+  <artifactId>openqa-lib</artifactId>
   <packaging>jar</packaging>
   <version>0.1.2-SNAPSHOT</version>
   <name>Open Question Answering engine</name>
@@ -37,13 +37,14 @@
   <artifactId>opennlp-tools</artifactId>
   <version>1.5.2-incubating</version>
 </dependency>
+-->
 <dependency>
 	<groupId>com.google.code.gson</groupId>
 	<artifactId>gson</artifactId>
 	<version>2.2.2</version>
 </dependency>
 
--->
+
 <dependency>
 	<groupId>org.htmlparser</groupId>
 	<artifactId>htmlparser</artifactId>
@@ -53,21 +54,6 @@
             
 
 <!-- to install these dependencies see lib/install/install.sh -->
-<dependency>
-	<groupId>com.google.search</groupId>
-	<artifactId>bing</artifactId>
-	<version>2.0.176</version>
-</dependency>
-<dependency>
-	<groupId>com.google.soap</groupId>
-	<artifactId>api</artifactId>
-	<version>beta</version>
-</dependency>
-<dependency>
-	<groupId>com.yahoo</groupId>
-	<artifactId>search</artifactId>
-	<version>beta</version>
-</dependency>
 <dependency>
 	<groupId>edu.cmu</groupId>
 	<artifactId>minorthird</artifactId>
@@ -142,21 +128,15 @@
 	<artifactId>trove</artifactId>
 	<version>1.0.2</version>
 </dependency>
-
-<dependency>
-	<groupId>com.google.gson</groupId>
-	<artifactId>gson</artifactId>
-	<version>1.4</version>
-</dependency>
-
   </dependencies>	
 
 
 	<build>
-		<finalName>OpenQA-Search</finalName>
+		<finalName>openqa-lib</finalName>
 		<plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
@@ -168,6 +148,11 @@
 				<version>2.3.1</version>
 				<configuration>
 					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>info.ephyra.OpenEphyra</mainClass>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
 						<manifestEntries>
 							<mode>development</mode>
 							<key>value</key>
