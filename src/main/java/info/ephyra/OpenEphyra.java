@@ -320,8 +320,10 @@ public class OpenEphyra {
 		MsgPrinter.printGeneratingQueries();
 		Query[] queries = QueryGeneration.getQueries(aq);
 		if (queries != null)
-			for (Query res:queries) 
+			for (Query res:queries) {
 				_log.debug(res.getQueryString());
+System.out.println(res.getQueryString());
+}
 		// search
 		MsgPrinter.printSearching();
 		

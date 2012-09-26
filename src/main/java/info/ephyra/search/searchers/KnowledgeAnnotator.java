@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.List;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -108,6 +109,8 @@ public abstract class KnowledgeAnnotator extends SingleThreadSearcher implements
 	 *            relevant content of a question
 	 */
 	public KnowledgeAnnotator(final String filename) throws IOException {
+		qPatterns = new LinkedList<Pattern>();
+                qContents = new LinkedList<String>();
 		final File file = new File(filename);
 		try (BufferedReader in = new BufferedReader(new FileReader(file))) {
 			// read name of the knowledge
