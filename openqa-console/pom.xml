@@ -16,14 +16,14 @@
 
 <dependency>
 	<groupId>org.openqa</groupId>
-	<artifactId>openqa-lib</artifactId>
+	<artifactId>openqa-ephyra</artifactId>
 	<version>${version}</version>
 </dependency>
   </dependencies>	
 
 
 	<build>
-		<finalName>openqa-lib</finalName>
+		<finalName>openqa-console</finalName>
 		<plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
