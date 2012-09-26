@@ -7,6 +7,7 @@ import info.ephyra.util.RegexConverter;
 import info.ephyra.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 
 import org.openqa.core.task.entities.Result;
@@ -32,14 +33,14 @@ public class AnswerProjectionFilter extends Filter {
 	};
 	
 	/** Results retrieved from the corpus. */
-	private Result[] resultsCorp;
+	private Collection<Result> resultsCorp;
 	
 	/**
 	 * Creates the filter and sets the results retrieved from the corpus.
 	 * 
 	 * @param resultsCorp results retrieved from the corpus
 	 */
-	public AnswerProjectionFilter(Result[] resultsCorp) {
+	public AnswerProjectionFilter(Collection<Result> resultsCorp) {
 		this.resultsCorp = resultsCorp;
 	}
 	

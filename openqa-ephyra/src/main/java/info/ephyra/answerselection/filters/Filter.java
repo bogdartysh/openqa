@@ -2,6 +2,8 @@ package info.ephyra.answerselection.filters;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 
 import org.openqa.core.task.entities.Result;
 
@@ -35,8 +37,8 @@ public abstract class Filter {
 	 * @param results results to filter
 	 * @return filtered results
 	 */
-	public Result[] apply(Result[] results) {
-		ArrayList<Result> filtered = new ArrayList<Result>();
+	public Collection<Result> apply(Collection<Result> results) {
+		Collection<Result> filtered = new HashSet<Result>();
 		
 		for (Result result : results) {
 			// filter results that do not have a score of
@@ -48,6 +50,6 @@ public abstract class Filter {
 			if (result != null) filtered.add(result);
 		}
 		
-		return filtered.toArray(new Result[filtered.size()]);
+		return filtered;
 	}
 }

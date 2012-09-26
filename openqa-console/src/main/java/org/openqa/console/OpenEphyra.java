@@ -49,7 +49,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-
 import org.apache.log4j.Logger;
 import org.openqa.core.task.entities.Query;
 import org.openqa.core.task.entities.Result;
@@ -63,192 +62,202 @@ import org.openqa.core.task.entities.Result;
 public class OpenEphyra {
 	private Logger _log = Logger
 			.getLogger(MultipleThreadSearcherAgregator.class.getCanonicalName());
-	
+
 	public SearchAgregator searcher;
 	/** Factoid question type. */
 	protected static final String FACTOID = "FACTOID";
 	/** List question type. */
 	protected static final String LIST = "LIST";
-	
+
 	/** Maximum number of factoid answers. */
 	protected static final int FACTOID_MAX_ANSWERS = 1;
 	/** Absolute threshold for factoid answer scores. */
 	protected static final float FACTOID_ABS_THRESH = 0;
 	/** Relative threshold for list answer scores (fraction of top score). */
 	protected static final float LIST_REL_THRESH = 0.1f;
-	
+
 	/** Serialized classifier for score normalization. */
-	public static final String NORMALIZER =
-		"res/scorenormalization/classifiers/" +
-		"AdaBoost70_" +
-		"Score+Extractors_" +
-		"TREC10+TREC11+TREC12+TREC13+TREC14+TREC15+TREC8+TREC9" +
-		".serialized";
-	
+	public static final String NORMALIZER = "res/scorenormalization/classifiers/"
+			+ "AdaBoost70_"
+			+ "Score+Extractors_"
+			+ "TREC10+TREC11+TREC12+TREC13+TREC14+TREC15+TREC8+TREC9"
+			+ ".serialized";
+
 	/** The directory of Ephyra, required when Ephyra is used as an API. */
 	protected String dir;
-	
+
 	/**
 	 * Entry point of Ephyra. Initializes the engine and starts the command line
 	 * interface.
 	 * 
-	 * @param args command line arguments are ignored
+	 * @param args
+	 *            command line arguments are ignored
 	 */
 	public static void main(String[] args) {
 		// enable output of status and error messages
 		MsgPrinter.enableStatusMsgs(true);
 		MsgPrinter.enableErrorMsgs(true);
-		
 
 		OpenEphyra openEphyra = new OpenEphyra();
 		openEphyra.searcher = new MultipleThreadSearcherAgregator();
 		try {
-			openEphyra.searcher.getSearchers().add(new WikipediaKA("res/knowledgeannotation/Wikipedia"));
-			openEphyra.searcher.getSearchers().add(new WorldFactbookKA("res/knowledgeannotation/WorldFactbook"));
+			openEphyra.searcher.getSearchers().add(
+					new WikipediaKA("res/knowledgeannotation/Wikipedia"));
+			openEphyra.searcher.getSearchers()
+					.add(new WorldFactbookKA(
+							"res/knowledgeannotation/WorldFactbook"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return;
 		}
-		
+
 		// initialize Ephyra and start command line interface
 		openEphyra.commandLine();
 	}
-	
+
 	/**
-	 * <p>Creates a new instance of Ephyra and initializes the system.</p>
+	 * <p>
+	 * Creates a new instance of Ephyra and initializes the system.
+	 * </p>
 	 * 
-	 * <p>For use as a standalone system.</p>
+	 * <p>
+	 * For use as a standalone system.
+	 * </p>
 	 */
 	protected OpenEphyra() {
 		this("");
 	}
-	
+
 	/**
-	 * <p>Creates a new instance of Ephyra and initializes the system.</p>
+	 * <p>
+	 * Creates a new instance of Ephyra and initializes the system.
+	 * </p>
 	 * 
-	 * <p>For use as an API.</p>
+	 * <p>
+	 * For use as an API.
+	 * </p>
 	 * 
-	 * @param dir directory of Ephyra
+	 * @param dir
+	 *            directory of Ephyra
 	 */
 	public OpenEphyra(String dir) {
 		this.dir = dir;
-		
+
 		MsgPrinter.printInitializing();
-		
+
 		// create tokenizer
 		MsgPrinter.printStatusMsg("Creating tokenizer...");
-		if (!OpenNLP.createTokenizer(dir +
-				"res/nlp/tokenizer/opennlp/EnglishTok.bin.gz"))
+		if (!OpenNLP.createTokenizer(dir
+				+ "res/nlp/tokenizer/opennlp/EnglishTok.bin.gz"))
 			MsgPrinter.printErrorMsg("Could not create tokenizer.");
-//		LingPipe.createTokenizer();
-		
+		// LingPipe.createTokenizer();
+
 		// create sentence detector
 		MsgPrinter.printStatusMsg("Creating sentence detector...");
-		if (!OpenNLP.createSentenceDetector(dir +
-				"res/nlp/sentencedetector/opennlp/EnglishSD.bin.gz"))
+		if (!OpenNLP.createSentenceDetector(dir
+				+ "res/nlp/sentencedetector/opennlp/EnglishSD.bin.gz"))
 			MsgPrinter.printErrorMsg("Could not create sentence detector.");
 		LingPipe.createSentenceDetector();
-		
+
 		// create stemmer
 		MsgPrinter.printStatusMsg("Creating stemmer...");
 		SnowballStemmer.create();
-		
+
 		// create part of speech tagger
 		MsgPrinter.printStatusMsg("Creating POS tagger...");
-		if (!OpenNLP.createPosTagger(
-				dir + "res/nlp/postagger/opennlp/tag.bin.gz",
-				dir + "res/nlp/postagger/opennlp/tagdict"))
+		if (!OpenNLP.createPosTagger(dir
+				+ "res/nlp/postagger/opennlp/tag.bin.gz", dir
+				+ "res/nlp/postagger/opennlp/tagdict"))
 			MsgPrinter.printErrorMsg("Could not create OpenNLP POS tagger.");
-//		if (!StanfordPosTagger.init(dir + "res/nlp/postagger/stanford/" +
-//				"wsj3t0-18-bidirectional/train-wsj-0-18.holder"))
-//			MsgPrinter.printErrorMsg("Could not create Stanford POS tagger.");
-		
+		// if (!StanfordPosTagger.init(dir + "res/nlp/postagger/stanford/" +
+		// "wsj3t0-18-bidirectional/train-wsj-0-18.holder"))
+		// MsgPrinter.printErrorMsg("Could not create Stanford POS tagger.");
+
 		// create chunker
 		MsgPrinter.printStatusMsg("Creating chunker...");
-		if (!OpenNLP.createChunker(dir +
-				"res/nlp/phrasechunker/opennlp/EnglishChunk.bin.gz"))
+		if (!OpenNLP.createChunker(dir
+				+ "res/nlp/phrasechunker/opennlp/EnglishChunk.bin.gz"))
 			MsgPrinter.printErrorMsg("Could not create chunker.");
-		
+
 		// create syntactic parser
 		MsgPrinter.printStatusMsg("Creating syntactic parser...");
-//		if (!OpenNLP.createParser(dir + "res/nlp/syntacticparser/opennlp/"))
-//			MsgPrinter.printErrorMsg("Could not create OpenNLP parser.");
+		// if (!OpenNLP.createParser(dir + "res/nlp/syntacticparser/opennlp/"))
+		// MsgPrinter.printErrorMsg("Could not create OpenNLP parser.");
 		try {
 			StanfordParser.initialize();
 		} catch (Exception e) {
 			MsgPrinter.printErrorMsg("Could not create Stanford parser.");
 		}
-		
+
 		// create named entity taggers
 		MsgPrinter.printStatusMsg("Creating NE taggers...");
 		NETagger.loadListTaggers(dir + "res/nlp/netagger/lists/");
 		NETagger.loadRegExTaggers(dir + "res/nlp/netagger/patterns.lst");
 		MsgPrinter.printStatusMsg("  ...loading models");
-//		if (!NETagger.loadNameFinders(dir + "res/nlp/netagger/opennlp/"))
-//			MsgPrinter.printErrorMsg("Could not create OpenNLP NE tagger.");
+		// if (!NETagger.loadNameFinders(dir + "res/nlp/netagger/opennlp/"))
+		// MsgPrinter.printErrorMsg("Could not create OpenNLP NE tagger.");
 		if (!StanfordNeTagger.isInitialized() && !StanfordNeTagger.init())
 			MsgPrinter.printErrorMsg("Could not create Stanford NE tagger.");
 		MsgPrinter.printStatusMsg("  ...done");
-		
+
 		// create linker
-//		MsgPrinter.printStatusMsg("Creating linker...");
-//		if (!OpenNLP.createLinker(dir + "res/nlp/corefresolver/opennlp/"))
-//			MsgPrinter.printErrorMsg("Could not create linker.");
-		
+		// MsgPrinter.printStatusMsg("Creating linker...");
+		// if (!OpenNLP.createLinker(dir + "res/nlp/corefresolver/opennlp/"))
+		// MsgPrinter.printErrorMsg("Could not create linker.");
+
 		// create WordNet dictionary
 		MsgPrinter.printStatusMsg("Creating WordNet dictionary...");
-		if (!WordNet.initialize(dir +
-				"res/ontologies/wordnet/file_properties.xml"))
+		if (!WordNet.initialize(dir
+				+ "res/ontologies/wordnet/file_properties.xml"))
 			MsgPrinter.printErrorMsg("Could not create WordNet dictionary.");
-		
+
 		// load function words (numbers are excluded)
 		MsgPrinter.printStatusMsg("Loading function verbs...");
-		if (!FunctionWords.loadIndex(dir +
-				"res/indices/functionwords_nonumbers"))
+		if (!FunctionWords.loadIndex(dir
+				+ "res/indices/functionwords_nonumbers"))
 			MsgPrinter.printErrorMsg("Could not load function words.");
-		
+
 		// load prepositions
 		MsgPrinter.printStatusMsg("Loading prepositions...");
-		if (!Prepositions.loadIndex(dir +
-				"res/indices/prepositions"))
+		if (!Prepositions.loadIndex(dir + "res/indices/prepositions"))
 			MsgPrinter.printErrorMsg("Could not load prepositions.");
-		
+
 		// load irregular verbs
 		MsgPrinter.printStatusMsg("Loading irregular verbs...");
 		if (!IrregularVerbs.loadVerbs(dir + "res/indices/irregularverbs"))
 			MsgPrinter.printErrorMsg("Could not load irregular verbs.");
-		
+
 		// load word frequencies
 		MsgPrinter.printStatusMsg("Loading word frequencies...");
 		if (!WordFrequencies.loadIndex(dir + "res/indices/wordfrequencies"))
 			MsgPrinter.printErrorMsg("Could not load word frequencies.");
-		
+
 		// load query reformulators
 		MsgPrinter.printStatusMsg("Loading query reformulators...");
-		if (!QuestionReformulationG.loadReformulators(dir +
-				"res/reformulations/"))
+		if (!QuestionReformulationG.loadReformulators(dir
+				+ "res/reformulations/"))
 			MsgPrinter.printErrorMsg("Could not load query reformulators.");
-		
+
 		// load answer types
-//		MsgPrinter.printStatusMsg("Loading answer types...");
-//		if (!AnswerTypeTester.loadAnswerTypes(dir +
-//				"res/answertypes/patterns/answertypepatterns"))
-//			MsgPrinter.printErrorMsg("Could not load answer types.");
-		
+		// MsgPrinter.printStatusMsg("Loading answer types...");
+		// if (!AnswerTypeTester.loadAnswerTypes(dir +
+		// "res/answertypes/patterns/answertypepatterns"))
+		// MsgPrinter.printErrorMsg("Could not load answer types.");
+
 		// load question patterns
 		MsgPrinter.printStatusMsg("Loading question patterns...");
-		if (!QuestionInterpreter.loadPatterns(dir +
-				"res/patternlearning/questionpatterns/"))
+		if (!QuestionInterpreter.loadPatterns(dir
+				+ "res/patternlearning/questionpatterns/"))
 			MsgPrinter.printErrorMsg("Could not load question patterns.");
-		
+
 		// load answer patterns
 		MsgPrinter.printStatusMsg("Loading answer patterns...");
-		if (!AnswerPatternFilter.loadPatterns(dir +
-				"res/patternlearning/answerpatterns/"))
+		if (!AnswerPatternFilter.loadPatterns(dir
+				+ "res/patternlearning/answerpatterns/"))
 			MsgPrinter.printErrorMsg("Could not load answer patterns.");
 	}
-	
+
 	/**
 	 * Reads a line from the command prompt.
 	 * 
@@ -256,17 +265,17 @@ public class OpenEphyra {
 	 */
 	protected String readLine() {
 		try {
-			return new java.io.BufferedReader(new
-				java.io.InputStreamReader(System.in)).readLine();
-		}
-		catch(java.io.IOException e) {
+			return new java.io.BufferedReader(new java.io.InputStreamReader(
+					System.in)).readLine();
+		} catch (java.io.IOException e) {
 			return new String("");
 		}
 	}
-	
+
 	/**
 	 * Initializes the pipeline for factoid questions.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	protected void initFactoid() throws IOException {
 		// question analysis
@@ -277,7 +286,7 @@ public class OpenEphyra {
 		// - ontologies for term expansion
 		QuestionAnalysis.clearOntologies();
 		QuestionAnalysis.addOntology(wordNet);
-		
+
 		// query generation
 		QueryGeneration.clearQueryGenerators();
 		QueryGeneration.addQueryGenerator(new BagOfWordsG());
@@ -285,8 +294,7 @@ public class OpenEphyra {
 		QueryGeneration.addQueryGenerator(new PredicateG());
 		QueryGeneration.addQueryGenerator(new QuestionInterpretationG());
 		QueryGeneration.addQueryGenerator(new QuestionReformulationG());
-		
-		
+
 		AnswerSelection.clearFilters();
 		// - answer extraction filters
 		AnswerSelection.addFilter(new AnswerTypeFilter());
@@ -304,43 +312,47 @@ public class OpenEphyra {
 		AnswerSelection.addFilter(new DuplicateFilter());
 		AnswerSelection.addFilter(new ScoreSorterFilter());
 	}
-	
+
 	/**
 	 * Runs the pipeline and returns an array of up to <code>maxAnswers</code>
 	 * results that have a score of at least <code>absThresh</code>.
 	 * 
-	 * @param aq analyzed question
-	 * @param maxAnswers maximum number of answers
-	 * @param absThresh absolute threshold for scores
+	 * @param aq
+	 *            analyzed question
+	 * @param maxAnswers
+	 *            maximum number of answers
+	 * @param absThresh
+	 *            absolute threshold for scores
 	 * @return array of results
 	 */
-	protected Collection<Result> runPipeline(AnalyzedQuestion aq, int maxAnswers,
-								  float absThresh) {
+	protected Collection<Result> runPipeline(AnalyzedQuestion aq,
+			int maxAnswers, float absThresh) {
 		// query generation
 		MsgPrinter.printGeneratingQueries();
 		Query[] queries = QueryGeneration.getQueries(aq);
 		if (queries != null)
-			for (Query res:queries) {
+			for (Query res : queries) {
 				_log.debug(res.getQueryString());
-System.out.println(res.getQueryString());
-}
+				System.out.println(res.getQueryString());
+			}
 		// search
 		MsgPrinter.printSearching();
-		
-		
-		Collection<Result> results = searcher.findResults(Arrays.asList(queries));
+
+		Collection<Result> results = searcher.findResults(Arrays
+				.asList(queries));
 		if (results != null)
-			for (Result res:results) 
+			for (Result res : results)
 				_log.debug(res.getAnswer());
 		System.out.println(" answer selection");
 		MsgPrinter.printSelectingAnswers();
-		results = Arrays.asList(AnswerSelection.getResults(results.toArray(new Result[0]), maxAnswers, absThresh));
+		results = Arrays.asList(AnswerSelection.getResults(
+				results.toArray(new Result[0]), maxAnswers, absThresh));
 		if (results != null)
-			for (Result res:results) 
+			for (Result res : results)
 				_log.debug(res.getAnswer());
 		return results;
 	}
-	
+
 	/**
 	 * Returns the directory of Ephyra.
 	 * 
@@ -349,22 +361,29 @@ System.out.println(res.getQueryString());
 	public String getDir() {
 		return dir;
 	}
-	
+
 	/**
-	 * <p>A command line interface for Ephyra.</p>
+	 * <p>
+	 * A command line interface for Ephyra.
+	 * </p>
 	 * 
-	 * <p>Repeatedly queries the user for a question, asks the system the
-	 * question and prints out and logs the results.</p>
+	 * <p>
+	 * Repeatedly queries the user for a question, asks the system the question
+	 * and prints out and logs the results.
+	 * </p>
 	 * 
-	 * <p>The command <code>exit</code> can be used to quit the program.</p>
+	 * <p>
+	 * The command <code>exit</code> can be used to quit the program.
+	 * </p>
 	 */
 	public void commandLine() {
 		while (true) {
 			// query user for question, quit if user types in "exit"
 			MsgPrinter.printQuestionPrompt();
 			String question = readLine().trim();
-			if (question.equalsIgnoreCase("exit")) System.exit(0);
-			
+			if (question.equalsIgnoreCase("exit"))
+				System.exit(0);
+
 			// determine question type and extract question string
 			String type;
 			if (question.matches("(?i)" + FACTOID + ":.*+")) {
@@ -377,97 +396,105 @@ System.out.println(res.getQueryString());
 				question = question.split(":", 2)[1].trim();
 			} else {
 				// question type unspecified
-				type = FACTOID;  // default type
+				type = FACTOID; // default type
 			}
-			
+
 			// ask question
 			Collection<Result> results = null;
 			if (type.equals(FACTOID)) {
 				_log.info("FACTOID");
 				_log.info(question);
-				
+
 				results = askFactoid(question, FACTOID_MAX_ANSWERS,
-						FACTOID_ABS_THRESH);			
-				
+						FACTOID_ABS_THRESH);
+
 			} else if (type.equals(LIST)) {
 				_log.info("FACTOID");
 				_log.info(question);
-				results = askList(question, LIST_REL_THRESH);			
-				
+				results = askList(question, LIST_REL_THRESH);
+
 			}
 			if (results != null)
-			for (Result result:results)
-				_log.info(result.getAnswer());
-			
+				for (Result result : results)
+					_log.info(result.getAnswer());
+
 			// print answers
 			MsgPrinter.printAnswers(results);
 		}
 	}
-	
+
 	/**
 	 * Asks Ephyra a factoid question and returns up to <code>maxAnswers</code>
 	 * results that have a score of at least <code>absThresh</code>.
 	 * 
-	 * @param question factoid question
-	 * @param maxAnswers maximum number of answers
-	 * @param absThresh absolute threshold for scores
+	 * @param question
+	 *            factoid question
+	 * @param maxAnswers
+	 *            maximum number of answers
+	 * @param absThresh
+	 *            absolute threshold for scores
 	 * @return array of results
 	 */
 	public Collection<Result> askFactoid(String question, int maxAnswers,
-							   float absThresh) {
+			float absThresh) {
 		// initialize pipeline
 		try {
 			initFactoid();
 		} catch (IOException e) {
-			_log.error(e,e);
+			_log.error(e, e);
 		}
-		
+
 		// analyze question
 		MsgPrinter.printAnalyzingQuestion();
 		AnalyzedQuestion aq = QuestionAnalysis.analyze(question);
-		
+
 		// get answers
 		return runPipeline(aq, maxAnswers, absThresh);
-		
+
 	}
-	
+
 	/**
 	 * Asks Ephyra a factoid question and returns a single result or
 	 * <code>null</code> if no answer could be found.
 	 * 
-	 * @param question factoid question
+	 * @param question
+	 *            factoid question
 	 * @return single result or <code>null</code>
 	 */
 	public Result askFactoid(String question) {
 		Collection<Result> results = askFactoid(question, 1, 0);
-		
-		return (results!= null && results.isEmpty()) ? results.iterator().next() : null;
-		
+
+		return (results != null && results.isEmpty()) ? results.iterator()
+				.next() : null;
+
 	}
-	
+
 	/**
 	 * Asks Ephyra a list question and returns results that have a score of at
 	 * least <code>relThresh * top score</code>.
 	 * 
-	 * @param question list question
-	 * @param relThresh relative threshold for scores
+	 * @param question
+	 *            list question
+	 * @param relThresh
+	 *            relative threshold for scores
 	 * @return array of results
 	 */
 	public Collection<Result> askList(String question, float relThresh) {
 		question = QuestionNormalizer.transformList(question);
-		
-		final Collection<Result> results = askFactoid(question, Integer.MAX_VALUE, 0);
-		
+
+		final Collection<Result> results = askFactoid(question,
+				Integer.MAX_VALUE, 0);
+
 		// get results with a score of at least relThresh * top score
 		ArrayList<Result> confident = new ArrayList<Result>();
-		if (results!= null && results.isEmpty()) {
-			float topScore = results.iterator().next() .getScore();
-			
+		if (results != null && results.isEmpty()) {
+			float topScore = results.iterator().next().getScore();
+
 			for (Result result : results)
 				if (result.getScore() >= relThresh * topScore)
 					confident.add(result);
 		}
-		
+
 		return confident;
 	}
 }

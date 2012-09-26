@@ -115,6 +115,19 @@ public class Result implements Comparable<Result>, Serializable {
 	}
 	
 	/**
+	 * Creates a <code>Result</code> object and sets the answer string and the
+	 * <code>Query</code> that was used to obtain the answer.
+	 * 
+	 * @param answer answer string
+	 * @param query <code>Query</code> object
+	 */
+	public Result(final String answer, final Query query, final int score) {
+		this(answer, query);		
+		this.score = score;
+	}
+	
+	
+	/**
 	 * Creates a <code>Result</code> object and sets the answer string, the
 	 * <code>Query</code> that was used to obtain the answer and the ID of a
 	 * document that contains it.

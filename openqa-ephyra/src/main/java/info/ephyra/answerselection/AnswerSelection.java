@@ -4,6 +4,9 @@ import info.ephyra.answerselection.filters.Filter;
 import info.ephyra.io.MsgPrinter;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 import org.openqa.core.task.entities.Result;
 
@@ -50,17 +53,17 @@ public class AnswerSelection {
 	 * @param minScore minimum score of a result that is returned
 	 * @return up to <code>maxResults</code> results
 	 */
-	public static Result[] getResults(Result[] results, int maxResults,
+	public static Collection<Result> getResults(Collection<Result> results, int maxResults,
 									  float minScore) {
 		// apply filters
 		for (Filter filter : filters) {
-			MsgPrinter.printFilterStarted(filter, results.length);
+			MsgPrinter.printFilterStarted(filter, results.size());
 			results = filter.apply(results);
-			MsgPrinter.printFilterFinished(filter, results.length);
+			MsgPrinter.printFilterFinished(filter, results.size());
 		}
 		
 		// get up to maxResults results with a score of at least minScore
-		ArrayList<Result> resultsList = new ArrayList<Result>();
+		Collection<Result> resultsList = new HashSet<Result>();
 		for (Result result : results) {
 			if (maxResults == 0) break;
 			
@@ -70,6 +73,6 @@ public class AnswerSelection {
 			}
 		}
 		
-		return resultsList.toArray(new Result[resultsList.size()]);
+		return resultsList;
 	}
 }
