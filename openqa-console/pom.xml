@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.openqa</groupId>
+  <artifactId>openqa-console</artifactId>
+  <packaging>jar</packaging>
+  <version>0.1.2-SNAPSHOT</version>
+  <name>Open Question Answering StandAlone console application</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+    <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+  <dependencies>
+
+<dependency>
+	<groupId>org.openqa</groupId>
+	<artifactId>openqa-ephyra</artifactId>
+	<version>${version}</version>
+</dependency>
+<dependency>
+	<groupId>org.openqa</groupId>
+	<artifactId>openqa-searchers</artifactId>
+	<version>${version}</version>
+</dependency>
+
+<dependency>
+	<groupId>org.openqa</groupId>
+	<artifactId>openqa-generators</artifactId>
+	<version>${version}</version>
+</dependency>
+
+<dependency>
+	<groupId>org.openqa</groupId>
+	<artifactId>openqa-filters</artifactId>
+	<version>${version}</version>
+</dependency>
+
+<dependency>
+	<groupId>org.openqa</groupId>
+	<artifactId>openqa-patternlearner</artifactId>
+	<version>${version}</version>
+</dependency>
+
+
+  </dependencies>	
+
+
+	<build>
+		<finalName>openqa-console</finalName>
+		<plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>org.openqa.console.OpenEphyra</mainClass>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<mode>development</mode>
+							<key>value</key>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+<plugin> 
+<groupId>org.apache.maven.plugins</groupId> 
+<artifactId>maven-dependency-plugin</artifactId> 
+<executions> 
+<execution> 
+<id>copy-dependencies</id> 
+<phase>package</phase> 
+<goals> 
+<goal>copy-dependencies</goal> 
+</goals> 
+<configuration> 
+<outputDirectory>${project.build.directory}/lib</outputDirectory> 
+</configuration> 
+</execution> 
+</executions> 
+</plugin>
+
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/</outputDirectory>
+							<resources>
+								<resource>
+									<directory>resources/</directory>
+									<filtering>false</filtering>
+								</resource>
+								<resource>
+									<directory>resources/scripts/</directory>
+									<filtering>false</filtering>
+								</resource>
+
+
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+
+	</build>
+
+</project>
