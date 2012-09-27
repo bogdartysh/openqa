@@ -1,6 +1,8 @@
 package info.ephyra.patternlearning;
 
-import info.ephyra.answerselection.filters.AnswerPatternFilter;
+
+import info.ephyra.answerselection.filters.AnswerPatternFilterUtils;
+import info.ephyra.answerselection.filters.FilterUtils;
 import info.ephyra.io.MsgPrinter;
 
 
@@ -186,7 +188,7 @@ public class PatternLearner {
 	 * @return <code>true</code>, iff the answer patterns could be saved
 	 */
 	private static boolean savePatterns(String dir) {
-		return AnswerPatternFilter.savePatterns(dir);
+		return AnswerPatternFilterUtils.savePatterns(dir);
 	}
 
 	/**
@@ -197,7 +199,7 @@ public class PatternLearner {
 	 * @return <code>true</code>, iff the answer patterns could be loaded
 	 */
 	private static boolean loadPatterns(String dir) {
-		return AnswerPatternFilter.loadPatterns(dir);
+		return AnswerPatternFilterUtils.loadPatterns(dir);
 	}
 
 	
@@ -207,10 +209,10 @@ public class PatternLearner {
 	 */
 	private static void filterPatterns() {
 		// drop answer patterns that have a low support
-		AnswerPatternFilter.dropLowSupport(SUPPORT_THRESH);
+		AnswerPatternFilterUtils.dropLowSupport(SUPPORT_THRESH);
 
 		// drop answer patterns that have a low confidence
-		AnswerPatternFilter.dropLowConfidence(CONFIDENCE_THRESH);
+		AnswerPatternFilterUtils.dropLowConfidence(CONFIDENCE_THRESH);
 	}
 
 	/**

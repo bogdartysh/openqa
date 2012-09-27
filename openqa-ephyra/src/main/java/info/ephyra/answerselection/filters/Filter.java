@@ -1,7 +1,6 @@
 package info.ephyra.answerselection.filters;
 
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -65,4 +64,6 @@ public abstract class Filter {
 		final Collection<Result> filtered = Arrays.asList(results);
 		return apply(filtered).toArray(new Result[0]);
 	}
+	
+	
 }

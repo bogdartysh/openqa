@@ -223,10 +223,6 @@ public class Query implements Serializable {
 		
 		return query;
 	}
-	
-	public boolean isWordATarget(final String word) {
-		for (QuestionInterpretation interpretation: getInterpretation()) {
-			
-		}
-	}
+
+
 }

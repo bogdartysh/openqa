@@ -1,0 +1,25 @@
+<classpath>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.2.2/gson-2.2.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/htmlparser/htmllexer/2.1/htmllexer-2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/htmlparser/htmlparser/2.1/htmlparser-2.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/lemurproject/indri/2.6/indri-2.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/edu/cmu/javelin/2007-07-22/javelin-2007-07-22.jar"/>
+  <classpathentry kind="var" path="M2_REPO/net/didion/jwnl/1.4/jwnl-1.4.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/aliasi/lingpipe/3.3.0/lingpipe-3.3.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar"/>
+  <classpathentry kind="var" path="M2_REPO/opennlp/maxent/maxent/2.4.0/maxent-2.4.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/edu/cmu/minorthird/12.7.5.31/minorthird-12.7.5.31.jar"/>
+  <classpathentry kind="var" path="M2_REPO/opennlp/tools/opennlp-tools/1.3.0/opennlp-tools-1.3.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/openqa/openqa-core/0.1.2-SNAPSHOT/openqa-core-0.1.2-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/openqa/openqa-ephyra/0.1.2-SNAPSHOT/openqa-ephyra-0.1.2-SNAPSHOT.jar"/>
+  <classpathentry kind="var" path="M2_REPO/javatools/plingstemmer/plingstemmer/2007-w24-3/plingstemmer-2007-w24-3.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/tartarus/snowball/1/snowball-1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/edu/stanford/nlp/stanford-ner/1.0/stanford-ner-1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/edu/stanford/nlp/stanford-parser/1.6/stanford-parser-1.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/edu/stanford/nlp/stanford-postagger/2006-05-21/stanford-postagger-2006-05-21.jar"/>
+  <classpathentry kind="var" path="M2_REPO/gnu/trove/trove/1.0.2/trove-1.0.2.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+</classpath>

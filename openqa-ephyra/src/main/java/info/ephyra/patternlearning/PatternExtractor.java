@@ -1,6 +1,7 @@
 package info.ephyra.patternlearning;
 
-import info.ephyra.answerselection.filters.AnswerPatternFilter;
+
+import info.ephyra.answerselection.filters.AnswerPatternFilterUtils;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.OpenNLP;
 import info.ephyra.questionanalysis.QuestionInterpretation;
@@ -370,7 +371,7 @@ public class PatternExtractor {
 			
 			// add patterns
 			for (String pattern : patterns)
-				AnswerPatternFilter.addPattern(pattern, prop);
+				AnswerPatternFilterUtils.addPattern(pattern, prop);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 package info.ephyra.questionanalysis;
 
-import info.ephyra.answerselection.filters.TruncationFilter;
+import info.ephyra.answerselection.filters.FilterUtils;
 import info.ephyra.nlp.NETagger;
 import info.ephyra.nlp.OpenNLP;
 import info.ephyra.util.Dictionary;
@@ -180,7 +180,7 @@ public class TermExtractor {
 					// phrase contains a special characters other than '.'?
 					if (text.matches(".*?[^\\w\\s\\.].*+")) continue;
 					// phrase can be truncated?
-					if (!text.equals(TruncationFilter.truncate(text))) continue;
+					if (!text.equals(FilterUtils.truncate(text))) continue;
 					
 					// phrase is in the dictionary?
 					if (dict.contains(text)) {
