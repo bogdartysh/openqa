@@ -99,7 +99,7 @@ public class OpenEphyra {
 		MsgPrinter.enableErrorMsgs(true);
 
 		OpenEphyra openEphyra = new OpenEphyra();
-		openEphyra.searcher = new MultipleThreadSearcherAgregator();
+		openEphyra.searcher = new MultipleThreadSearcherAgregator(2);
 		try {
 			openEphyra.searcher.getSearchers().add(
 					new WikipediaKA("res/knowledgeannotation/Wikipedia"));
@@ -345,8 +345,7 @@ public class OpenEphyra {
 				_log.debug(res.getAnswer());
 		System.out.println(" answer selection");
 		MsgPrinter.printSelectingAnswers();
-		results = Arrays.asList(AnswerSelection.getResults(
-				results, maxAnswers, absThresh));
+		results = AnswerSelection.getResults(results, maxAnswers, absThresh);
 		if (results != null)
 			for (Result res : results)
 				_log.debug(res.getAnswer());

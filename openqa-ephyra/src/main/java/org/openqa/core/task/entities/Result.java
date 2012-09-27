@@ -121,9 +121,10 @@ public class Result implements Comparable<Result>, Serializable {
 	 * @param answer answer string
 	 * @param query <code>Query</code> object
 	 */
-	public Result(final String answer, final Query query, final int score) {
+	public Result(final String answer, final Query query, final float score, final String docId) {
 		this(answer, query);		
 		this.score = score;
+		this.docID = docId;
 	}
 	
 	

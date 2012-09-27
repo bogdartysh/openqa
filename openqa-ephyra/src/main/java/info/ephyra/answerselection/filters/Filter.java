@@ -2,6 +2,7 @@ package info.ephyra.answerselection.filters;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -27,9 +28,10 @@ public abstract class Filter {
 	 * @param result result to filter
 	 * @return modified result or <code>null</code> if the result is dropped
 	 */
-	public Result apply(Result result) {
+	public Result apply(final Result result) {
 		return result;
 	}
+
 	
 	/**
 	 * Filters an array of <code>Result</code> objects.
@@ -37,7 +39,7 @@ public abstract class Filter {
 	 * @param results results to filter
 	 * @return filtered results
 	 */
-	public Collection<Result> apply(Collection<Result> results) {
+	public Collection<Result> apply(final Collection<Result> results) {
 		Collection<Result> filtered = new HashSet<Result>();
 		
 		for (Result result : results) {
@@ -51,5 +53,16 @@ public abstract class Filter {
 		}
 		
 		return filtered;
+	}
+	
+	/**
+	 * Filters an array of <code>Result</code> objects.
+	 * 
+	 * @param results results to filter
+	 * @return filtered results
+	 */
+	public Result[] apply(final Result[] results) {
+		final Collection<Result> filtered = Arrays.asList(results);
+		return apply(filtered).toArray(new Result[0]);
 	}
 }

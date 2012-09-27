@@ -1,5 +1,6 @@
 package info.ephyra.answerselection.filters;
 
+import org.apache.log4j.Logger;
 import org.openqa.core.task.entities.Result;
 
 import info.ephyra.questionanalysis.KeywordExtractor;
@@ -20,18 +21,23 @@ import info.ephyra.questionanalysis.KeywordExtractor;
  * @version 2007-04-16
  */
 public class QuestionKeywordsFilter extends Filter {
+	private static Logger _logger = Logger.getLogger(QuestionKeywordsFilter.class);
 	/**
 	 * Filters a single <code>Result</code> object.
-	 * 
+	 * <p>Should not apply to name/identities</p>  
 	 * @param result result to filter
 	 * @return result or <code>null</code>
 	 */
-	public Result apply(Result result) {
-		String[] tokens = KeywordExtractor.tokenize(result.getAnswer());
-		String[] kws = result.getQuery().getAnalyzedQuestion().getKeywords();
+	public Result apply(final Result result) {		
+		final String[] tokens = KeywordExtractor.tokenize(result.getAnswer());
+		final String[] kws = result.getQuery().getAnalyzedQuestion().getKeywords();
 		for (String token : tokens)
+			if (!result.getQuery().getInterpretation().getTarget().equalsIgnoreCase(token))
 			for (String kw : kws)
-				if (token.equalsIgnoreCase(kw)) return null;
+				if (token.equalsIgnoreCase(kw)) {
+					_logger.debug("seems that result is another form of a question");
+					return null;
+				}
 		
 		return result;
 	}

@@ -4,6 +4,7 @@ import info.ephyra.answerselection.filters.Filter;
 import info.ephyra.io.MsgPrinter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -58,7 +59,7 @@ public class AnswerSelection {
 		// apply filters
 		for (Filter filter : filters) {
 			MsgPrinter.printFilterStarted(filter, results.size());
-			results = filter.apply(results);
+			results = Arrays.asList(filter.apply(results.toArray(new Result[0])));
 			MsgPrinter.printFilterFinished(filter, results.size());
 		}
 		

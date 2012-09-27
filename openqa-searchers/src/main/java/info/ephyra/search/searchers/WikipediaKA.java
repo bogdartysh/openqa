@@ -35,6 +35,8 @@ import org.openqa.core.task.entities.Result;
 public class WikipediaKA extends KnowledgeAnnotator {
 	private Logger _log = Logger
 			.getLogger(WikipediaKA.class.getCanonicalName());
+	
+	private static final float SCORE = Float.MAX_VALUE / 2.0f;
 
 	/** The URL of the Wikipedia search page. */
 	private static final String URL = "http://en.wikipedia.org/wiki/Special:Search?search=";
@@ -95,7 +97,7 @@ public class WikipediaKA extends KnowledgeAnnotator {
 						// sentence is really a definition of the term
 						if (sentence.matches(definitionMatcher))
 							// create result from sentence
-							return new Result(sentence, query);
+							return new Result(sentence, query, SCORE, search.getPath());
 					}
 				}
 			} finally {
