@@ -1,3 +1,4 @@
-LD_LIBRARY_PATH=`pwd`
+LD_LIBRARY_PATH=`pwd`/lib
 export LD_LIBRARY_PATH
-java -cp LD_LIBRARY_PATH;openqa-console.jar; -Xms512m -Xmx1024m org.openqa.console.OpenEphyra
+export CLASSPATH="$CLASSPATH:LD_LIBRARY_PATH:.:./lib:openqa-console.jar"
+java -Xms512m -Xmx1024m org.openqa.console.OpenEphyra

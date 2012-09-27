@@ -109,7 +109,7 @@
 							<outputDirectory>${project.build.directory}/</outputDirectory>
 							<resources>
 								<resource>
-									<directory>/resources/</directory>
+									<directory>resources/</directory>
 									<filtering>false</filtering>
 								</resource>
 								<resource>
