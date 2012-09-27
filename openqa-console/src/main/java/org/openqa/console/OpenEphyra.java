@@ -305,7 +305,7 @@ public class OpenEphyra {
 		AnswerSelection.addFilter(new TruncationFilter());
 		// - answer selection filters
 		AnswerSelection.addFilter(new StopwordFilter());
-		AnswerSelection.addFilter(new QuestionKeywordsFilter());
+		//AnswerSelection.addFilter(new QuestionKeywordsFilter());
 		AnswerSelection.addFilter(new ScoreNormalizationFilter(NORMALIZER));
 		AnswerSelection.addFilter(new ScoreCombinationFilter());
 		AnswerSelection.addFilter(new FactoidSubsetFilter());
