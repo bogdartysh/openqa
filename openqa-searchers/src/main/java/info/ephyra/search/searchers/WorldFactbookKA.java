@@ -36,6 +36,8 @@ import org.openqa.core.task.entities.Result;
 public class WorldFactbookKA extends KnowledgeAnnotator {
 	private Logger _log = Logger.getLogger(WorldFactbookKA.class
 			.getCanonicalName());
+	private static final float SCORE = 100f;
+	
 	/** The URL of the CIA World Factbook. */
 	private static final String URL = "https://www.cia.gov/library/publications/the-world-factbook/";
 
