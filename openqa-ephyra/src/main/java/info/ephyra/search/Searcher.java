@@ -7,6 +7,7 @@ import org.openqa.core.task.entities.Result;
 
 public interface Searcher {
 	public Collection<Result> findResults(final Collection<Query> queries);
+	public Collection<Result> findResults(final Query query);
 	public Result findResult(final Query queries);
 	public boolean matches(final Query query);
 }

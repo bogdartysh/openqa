@@ -33,14 +33,12 @@ public class MultipleThreadSearcherAgregator implements SearchAgregator {
 		searchers = new LinkedList<Searcher>();
 		pool = Executors.newFixedThreadPool(DEFAULT_POOL_SIZE);
 	}
-	
-	
 
 	public MultipleThreadSearcherAgregator(final int poolSize) {
 		super();
 		searchers = new LinkedList<Searcher>();
 		pool = Executors.newFixedThreadPool(poolSize);
-		
+
 	}
 
 	public Collection<Result> findResults(final Collection<Query> queries) {
@@ -50,7 +48,8 @@ public class MultipleThreadSearcherAgregator implements SearchAgregator {
 		for (Searcher searcher : getSearchers()) {
 			final Callable<Collection<Result>> callable = new SearcherCallable(
 					searcher, queries);
-			final Future<Collection<Result>> future = getPool().submit(callable);
+			final Future<Collection<Result>> future = getPool()
+					.submit(callable);
 			set.add(future);
 		}
 		for (Future<Collection<Result>> future : set) {
@@ -91,7 +90,7 @@ public class MultipleThreadSearcherAgregator implements SearchAgregator {
 	@Override
 	public List<Searcher> getSearchers() {
 		return searchers;
-		
+
 	}
 
 	/**
@@ -103,15 +102,18 @@ public class MultipleThreadSearcherAgregator implements SearchAgregator {
 		this.searchers = searchers;
 	}
 
-
-
 	/**
 	 * @return the pool
 	 */
 	public ExecutorService getPool() {
 		return pool;
 	}
-	
-	
+
+	@Override
+	public Collection<Result> findResults(Query query) {
+		final List<Query> lst = new ArrayList<Query>(1);
+		lst.add(query);
+		return findResults(lst);
+	}
 
 }

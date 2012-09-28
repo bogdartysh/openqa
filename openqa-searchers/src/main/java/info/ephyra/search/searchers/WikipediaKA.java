@@ -36,7 +36,7 @@ public class WikipediaKA extends KnowledgeAnnotator {
 	private Logger _log = Logger
 			.getLogger(WikipediaKA.class.getCanonicalName());
 	
-	private static final float SCORE = Float.MAX_VALUE / 2.0f;
+	private static final float SCORE = 100f;
 
 	/** The URL of the Wikipedia search page. */
 	private static final String URL = "http://en.wikipedia.org/wiki/Special:Search?search=";
@@ -57,7 +57,7 @@ public class WikipediaKA extends KnowledgeAnnotator {
 	}
 
 	/**
-	 * Creates a <code>WikipediaKA</code> and calls the constructor of the
+	 * Creates a <code>DbPediaSearcher</code> and calls the constructor of the
 	 * superclass that reads the question patterns from a file.
 	 * 
 	 * @param filename

@@ -10,6 +10,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import net.didion.jwnl.JWNL;
 import net.didion.jwnl.JWNLException;
 import net.didion.jwnl.data.IndexWord;
@@ -31,6 +33,7 @@ import net.didion.jwnl.data.list.PointerTargetNodeList;
  * @version 2007-05-30
  */
 public class WordNet implements Ontology {
+	private static final Logger _log = Logger.getLogger(Ontology.class);
 	/** Indicates that a word is an adjective. */
 	public static final POS ADJECTIVE = POS.ADJECTIVE;
 	/** Indicates that a word is an adverb. */
@@ -296,15 +299,22 @@ public class WordNet implements Ontology {
 	 * @param pos its part of speech
 	 * @return synset or <code>null</code> if lookup failed
 	 */
-	private static Synset getCommonSynset(String word, POS pos) {
-		if (dict == null) return null;
+	private static Synset getCommonSynset(final String word, final POS pos) {
+		if (dict == null) {
+			_log.warn("dict is null for word" + word);
+			return null;
+		}
 		
 		Synset synset = null;
 		try {
-			IndexWord indexWord = dict.lookupIndexWord(pos, word);
+			final IndexWord indexWord = dict.lookupIndexWord(pos, word);
 			if (indexWord == null) return null;
 			synset = indexWord.getSense(1);
-		} catch (JWNLException e) {}
+		} catch (JWNLException e) {
+			_log.error(e,e);
+		} catch (Exception e) {
+			_log.error(e,e);
+		}
 		
 		return synset;
 	}

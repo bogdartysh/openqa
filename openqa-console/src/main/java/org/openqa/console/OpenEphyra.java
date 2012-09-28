@@ -43,6 +43,7 @@ import info.ephyra.search.SearchAgregator;
 
 import info.ephyra.search.searchers.WikipediaKA;
 import info.ephyra.search.searchers.WorldFactbookKA;
+import info.ephyra.search.searchers.sparql.dbpedia.customquery.DbPediaDOBSearcher;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -99,13 +100,15 @@ public class OpenEphyra {
 		MsgPrinter.enableErrorMsgs(true);
 
 		OpenEphyra openEphyra = new OpenEphyra();
-		openEphyra.searcher = new MultipleThreadSearcherAgregator(2);
+		openEphyra.searcher = new MultipleThreadSearcherAgregator(3);
 		try {
 			openEphyra.searcher.getSearchers().add(
 					new WikipediaKA("res/knowledgeannotation/Wikipedia"));
 			openEphyra.searcher.getSearchers()
 					.add(new WorldFactbookKA(
 							"res/knowledgeannotation/WorldFactbook"));
+			openEphyra.searcher.getSearchers()
+			.add(new DbPediaDOBSearcher());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -4,8 +4,8 @@
   <groupId>org.openqa</groupId>
   <artifactId>openqa-patternlearner</artifactId>
   <packaging>jar</packaging>
-  <version>0.1.2-SNAPSHOT</version>
-  <name>Open Question Answering StandAlone console application</name>
+  <project.version>0.1.2-SNAPSHOT</project.version>
+  <name>Open Question Answering Patten basic implementation</name>
   <url>http://maven.apache.org</url>
   
   <properties>

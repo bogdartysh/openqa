@@ -1,5 +1,9 @@
 package info.ephyra.search.searchers.sparql.dbpedia;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import info.ephyra.search.searchers.sparql.SparqlSearcher;
 
 import org.apache.log4j.Logger;
@@ -31,8 +35,8 @@ public abstract class DbPediaSearcher extends SparqlSearcher {
 			+ "PREFIX geo: <http://www.georss.org/georss/>";
 
 	@Override
-	public Result findResult(final Query query) {
-		Result result = null;
+	public Collection<Result> findResults(final Query query) {
+		Set<Result> results = null;
 		com.hp.hpl.jena.query.Query querySparq = getSparqlQuery(query);
 		if (querySparq == null) {
 			_log.warn("returnin null, s.a. failed to generate a SPARQL query");
@@ -47,9 +51,12 @@ public abstract class DbPediaSearcher extends SparqlSearcher {
 		// be found in almost any Jena/SPARQL tutorial.
 		try {
 			qexec = QueryExecutionFactory.sparqlService(URL, querySparq);
-			ResultSet results = qexec.execSelect();
-			for (; results.hasNext();) {
-
+			ResultSet res = qexec.execSelect();
+			for (; res.hasNext();) {
+				if (results == null) results = new HashSet<Result>();
+				final String answer = "Birthday is " + res.getResultVars().get(1).toString();
+				final Result result = new Result(answer, query, SCORE, "dbPedia.org");
+				results.add(result);
 				// Result processing is done here.
 			}
 		} catch (Exception e) {
@@ -62,7 +69,7 @@ public abstract class DbPediaSearcher extends SparqlSearcher {
 					_log.error(e, e);
 				}
 		}
-		return result;
+		return results;
 
 	}
 

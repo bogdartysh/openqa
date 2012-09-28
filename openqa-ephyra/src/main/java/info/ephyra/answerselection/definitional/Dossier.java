@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Properties;
 
+import org.openqa.core.enums.PropertiesTitles;
+import org.openqa.core.enums.TargetTypeEnum;
+
 /**
  * A <code>Dossier</code> specifies different properties of a target (such as a
  * person or an event). These properties depend on the target type. For
@@ -124,7 +127,7 @@ public class Dossier {
 		}
 		
 		//	FACTOID questions could probably not be interpreted (no properties given), often happens with somewhat wired questions on events
-		if (max == 0) return EVENT;
+		if (max == 0) return TargetTypeEnum.EVENT.name();
 		
 		//	return type most likely to have given properties
 		return types[typeIndex];
@@ -188,143 +191,18 @@ public class Dossier {
 	private static ArrayList<String> targetTypes = new ArrayList<String>();
 	private static HashMap<String, String[]> targetTypeProperties = new HashMap<String, String[]>();
 	
-	public static final String PERSON = "PERSON";
-	public static final String ORGANIZATION = "ORGANIZATION";
-	public static final String EVENT = "EVENT";
-	public static final String THING = "THING";
-	public static final String ENTERTAINMENT = "ENTERTAINMENT";
 	
-	private static final String[] PERSON_PROPERTIES = {
-		"AGE", 
-		"ANCESTOR", 
-		"CAUSEOFDEATH", 
-		"DATEOFBIRTH", 
-		"DATEOFDEATH", 
-		"DATEOFLIVING", 
-		"DATEOFMARRIAGE", 
-		"FOOD", 
-		"HABITAT", 
-		"HEIGHT", 
-		"IDENTITY", 
-		"INCOME", 
-		"KILLER", 
-		"LANGUAGE", 
-		"LIFESPAN", 
-		"NAME", 
-		"NATIONALITY", 
-		"PLACEOFBIRTH", 
-		"PLACEOFDEATH", 
-		"PLACEOFLIVING", 
-		"PROFESSION", 
-		"SIZE", 
-		"SPECIALTY"
-		};
-	private static final String[] ORGANIZATION_PROPERTIES = {
-		"ABBREVIATION", 
-//		"ACTOR", 
-		"AGE", 
-		"DATEOFFOUNDATION", 
-		"DATEOFSTARTOFOPERATION", 
-		"FOUNDER", 
-		"FUNCTION", 
-		"HABITAT", 
-		"INCOME", 
-		"LANGUAGE", 
-		"LEADER", 
-		"LONGFORM", 
-		"NAME", 
-		"NATIONALITY", 
-		"OWNER", 
-		"PLACEOFORIGIN", 
-		"SPECIALTY", 
-		"SYNONYM", 
-		"VALUE"
-		};
-	private static final String[] EVENT_PROPERTIES = {
-//		"ABBREVIATION", 
-		"ACTOR", 
-//		"AGE", 
-		"CAUSE", 
-		"CONSEQUENCE", 
-		"DATE", 
-//		"DATEOFCREATION", 
-//		"DATEOFEND", 
-//		"DATEOFSTART", 
-//		"DURATION", 
-//		"HABITAT", 
-//		"LANGUAGE", 
-//		"NAME", 
-		"PLACE", 
-//		"SYNONYM", 
-//		"VALUE", 
-//		"WINNER"
-		};
-	private static final String[] THING_PROPERTIES = {
-		"ABBREVIATION", 
-		"AGE", 
-		"AUTHOR", 
-		"BUILDER", 
-		"CAPITAL", 
-		"DATEOFCREATION", 
-		"DATEOFINVENTION",
-		"DATEOFSTARTOFOPERATION", 
-		"DEFINITION", 
-		"DISCOVERER", 
-		"DISCOVERY", 
-		"DISTANCE", 
-		"EXAMPLE", 
-		"FOOD", 
-		"FUNCTION", 
-		"HEIGHT", 
-		"INSTRUMENT", 
-		"INVENTOR", 
-		"MEDICINE", 
-		"NAME", 
-		"OWNER", 
-		"PLACEOFOCCURRENCE", 
-		"PLACEOFORIGIN", 
-		"POPULATION", 
-		"PROVIDER", 
-		"RESOURCE", 
-		"SIZE", 
-		"SPECIES", 
-		"SPEED", 
-		"SYMPTOM", 
-		"SYNONYM", 
-		"TEMPERATURE", 
-		"VALUE", 
-		"WIDTH"
-		};
-	private static final String[] ENTERTAINMENT_PROPERTIES = {
-		"ACTOR", 
-		"AGE", 
-		"AUTHOR", 
-		"DATEOFCREATION", 
-		"DATEOFEND", 
-		"DATEOFSTART", 
-		"DURATION", 
-		"EXAMPLE", 
-		"INSTRUMENT", 
-		"LANGUAGE", 
-		"MOVIE", 
-		"NAME", 
-		"OWNER", 
-		"PLACE", 
-		"PLACEOFORIGIN", 
-		"SYNONYM", 
-		"VALUE"
-		};
 	
 	static {
-		targetTypes.add(PERSON);
-		targetTypeProperties.put(PERSON, PERSON_PROPERTIES);
-		targetTypes.add(ORGANIZATION);
-		targetTypeProperties.put(ORGANIZATION, ORGANIZATION_PROPERTIES);
-		targetTypes.add(EVENT);
-		targetTypeProperties.put(EVENT, EVENT_PROPERTIES);
-		targetTypes.add(THING);
-		targetTypeProperties.put(THING, THING_PROPERTIES);
-		targetTypes.add(ENTERTAINMENT);
-		targetTypeProperties.put(ENTERTAINMENT, ENTERTAINMENT_PROPERTIES);
+		targetTypes.add(TargetTypeEnum.PERSON.name());
+		targetTypeProperties.put(TargetTypeEnum.PERSON.name(), PropertiesTitles.PERSON_PROPERTIES);
+		targetTypes.add(TargetTypeEnum.ORGANIZATION.name());
+		targetTypeProperties.put(TargetTypeEnum.ORGANIZATION.name(), PropertiesTitles.ORGANIZATION_PROPERTIES);
+		targetTypes.add(TargetTypeEnum.EVENT.name());
+		targetTypeProperties.put(TargetTypeEnum.EVENT.name(), PropertiesTitles.EVENT_PROPERTIES);
+		targetTypes.add(TargetTypeEnum.THING.name());
+		targetTypeProperties.put(TargetTypeEnum.THING.name(), PropertiesTitles.THING_PROPERTIES);
+		targetTypes.add(TargetTypeEnum.ENTERTAINMENT.name());
+		targetTypeProperties.put(TargetTypeEnum.ENTERTAINMENT.name(), PropertiesTitles.ENTERTAINMENT_PROPERTIES);
 	}
 }
