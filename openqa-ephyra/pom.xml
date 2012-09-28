@@ -33,12 +33,14 @@
   <version>1.5.2-incubating</version>
 </dependency>
 -->
+<!-- not needed
+
 <dependency>
 	<groupId>com.google.code.gson</groupId>
 	<artifactId>gson</artifactId>
 	<version>2.2.2</version>
 </dependency>
-
+-->
 
 <dependency>
 	<groupId>org.htmlparser</groupId>
@@ -104,25 +106,26 @@
 	<artifactId>maxent</artifactId>
 	<version>2.4.0</version>
 </dependency>
-
+<!-- not needed 
 <dependency>
 	<groupId>lemurproject</groupId>
 	<artifactId>indri</artifactId>
 	<version>2.6</version>
 </dependency>
-
+-->
 
 <dependency>
 	<groupId>javatools.plingstemmer</groupId>
 	<artifactId>plingstemmer</artifactId>
 	<version>2007-w24-3</version>
 </dependency>
-
+<!-- not needed
 <dependency>
 	<groupId>gnu.trove</groupId>
 	<artifactId>trove</artifactId>
 	<version>1.0.2</version>
 </dependency>
+-->
   </dependencies>	
 
 
