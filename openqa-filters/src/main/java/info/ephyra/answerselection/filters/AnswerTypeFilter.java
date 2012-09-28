@@ -6,6 +6,7 @@ import info.ephyra.util.StringUtils;
 
 import java.util.Hashtable;
 
+import org.openqa.core.enums.FilterIdEnum;
 import org.openqa.core.task.entities.Query;
 import org.openqa.core.task.entities.Result;
 
